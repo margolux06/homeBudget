@@ -1,7 +1,8 @@
 package com.urban.gosia;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +10,23 @@ import java.util.List;
 @RestController
 public class BankAccountController {
 
-    @GetMapping("/accountList")
+    private final BankAccountRepository bankAccountRepository;
+
+    @Autowired
+    public BankAccountController(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepository = bankAccountRepository;
+    }
+
+    @GetMapping("/account")
     public List<BankAccount> listBankAccounts() {
-        List<BankAccount> accountList = new ArrayList<>();
-        accountList.add(new BankAccount("Test first account name"));
-        accountList.add(new BankAccount("Test second account name"));
-        return accountList;
+        return bankAccountRepository.findAll();
+    }
+
+    @PostMapping("/account")
+    @ResponseStatus(HttpStatus.OK)
+    public void createAccount(@RequestBody BankAccountDto accountDto){
+        BankAccount bankAccount = accountDto.convert();
+        bankAccountRepository.save(bankAccount);
+
     }
 }
