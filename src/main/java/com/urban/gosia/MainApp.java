@@ -10,10 +10,12 @@ public class MainApp extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "PUT", "POST", "DELETE", "OPTIONS");
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(MainApp.class, args);
     }
 }

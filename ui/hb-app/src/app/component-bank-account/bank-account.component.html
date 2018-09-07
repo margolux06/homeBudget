@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Konta bankowe</h2>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Nr. konta</th>
+      <th scope="col">Bank</th>
+      <th scope="col">Typ</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let account of accounts">
+      <td>{{account.accountNumber}}</td>
+      <td>{{account.bankName}}</td>
+      <td>{{account.accountType}}</td>
+      <td>
+        <button (click)="onEditAccount(account.id)">edytuj</button>
+      </td>
+      <td>
+        <button (click)="onDeleteAccount(account.id)">usuń</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/accountCreate">Dodaj nowe konto</a>
+</div>

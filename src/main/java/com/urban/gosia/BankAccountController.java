@@ -29,4 +29,10 @@ public class BankAccountController {
         bankAccountRepository.save(bankAccount);
 
     }
+
+    @DeleteMapping("/account/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAccount(@PathVariable("id") Integer id){
+        bankAccountRepository.delete(id);
+    }
 }

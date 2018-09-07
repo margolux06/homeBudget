@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="card">
+    <h5 class="card-header">Dodaj nowe konto</h5>
+    <form class="card-body" (ngSubmit)="onSubmit()" #accountForm="ngForm">
+      <div class="form-group">
+        <label for="accountNumber">Numer konta bankowego</label>
+        <input placeholder="numer konta" class="form-control" id="accountNumber"
+               required
+               [(ngModel)]="accountModel.accountNumber" name="accountNumber"
+               #accountNumber="ngModel">
+        <div *ngIf="!accountNumber.valid && !accountNumber.pristine" class="alert alert-danger">
+          Proszę podać numer konta
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Nazwa banku</label>
+        <input placeholder="nazwa banku" class="form-control" id="bankName"
+               required
+               [(ngModel)]="accountModel.bankName" name="bankName"
+               #bankName="ngModel"/>
+        <div *ngIf="!bankName.valid && !bankName.pristine" class="alert alert-danger">
+          Proszę podać nazwę banku
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Typ konta</label>
+        <select class="form-control" id="accountType"
+                required
+                [(ngModel)]="accountModel.accountType"
+                #accountType="ngModel"
+                name="accountType">
+
+          <option *ngFor="let accountType of accountTypeKeys"
+                  [selected]="accountModel.accountType == accountType"
+                  [value]="accountType">{{accountType}}
+          </option>
+        </select>
+        <div *ngIf="!accountType.valid" class="alert alert-danger">
+          Proszę wybrać typ konta
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!accountForm.form.valid">Dodaj</button>
+    </form>
+  </div>
+</div>
