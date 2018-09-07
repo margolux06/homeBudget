@@ -7,7 +7,8 @@ import {BankAccountFormComponent} from "./bank-account-form/bank-account-form.co
 const routes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'accounts', component: BankAccountComponent},
-  {path: 'accountCreate', component: BankAccountFormComponent}
+  {path: 'accountCreate', component: BankAccountFormComponent},
+  {path: 'accountEdit/:id', component: BankAccountFormComponent}
 ];
 
 @NgModule({

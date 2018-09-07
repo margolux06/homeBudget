@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
 import {BankAccountCreateForm, BankAccountTypes} from "../component-bank-account/models/bank-account-create-form";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
 
@@ -13,7 +15,10 @@ export class BankAccountFormComponent implements OnInit {
   accountTypeKeys = [];
 
 
-  constructor(private accountService: BankAccountService) {
+  constructor(
+    private accountService: BankAccountService,
+    private route: ActivatedRoute,
+    private location: Location) {
     this.accountTypeKeys = this.toArray(BankAccountTypes);
   }
 
@@ -24,12 +29,26 @@ export class BankAccountFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accountModel = new BankAccountCreateForm("", "", null);
+    this.accountModel = new BankAccountCreateForm(null, "", "", null);
+    this.getAccountIdParam();
+
   }
 
   onSubmit() {
     this.accountService.createAccount(this.accountModel).subscribe(value => {
       window.history.back();
     })
+  }
+
+  private getAccountIdParam() {
+    if (this.route.snapshot.paramMap.has("id")) {
+      const id = +this.route.snapshot.paramMap.get("id");
+      console.log(id);
+      this.accountService.findAccountById(id).subscribe(bankAccountFormModel => {
+        this.accountModel = bankAccountFormModel;
+        console.log(JSON.stringify(this.accountModel));
+      }, error1 => {
+      });
+    }
   }
 }

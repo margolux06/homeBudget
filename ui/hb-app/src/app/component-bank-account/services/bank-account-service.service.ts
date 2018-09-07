@@ -12,6 +12,10 @@ export class BankAccountService {
     return this.http.get(BankAccountService.bankAccountUrl);
   }
 
+  findAccountById(accountId: number){
+    return this.http.get<BankAccountCreateForm>(BankAccountService.bankAccountUrl + "/" + accountId);
+  }
+
   createAccount(bankAccountFormModel: BankAccountCreateForm){
     return this.http.post(BankAccountService.bankAccountUrl, bankAccountFormModel);
   }

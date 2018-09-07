@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BankAccountService} from './services/bank-account-service.service';
-import {Alert} from "selenium-webdriver";
 
 @Component({
   selector: 'app-component-bank-account',

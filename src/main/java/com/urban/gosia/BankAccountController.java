@@ -22,12 +22,16 @@ public class BankAccountController {
         return bankAccountRepository.findAll();
     }
 
+    @GetMapping("/account/{id}")
+    public BankAccount findBankAccountById(@PathVariable("id") Integer id){
+        return bankAccountRepository.findOne(id);
+    }
+
     @PostMapping("/account")
     @ResponseStatus(HttpStatus.OK)
     public void createAccount(@RequestBody BankAccountDto accountDto){
         BankAccount bankAccount = accountDto.convert();
         bankAccountRepository.save(bankAccount);
-
     }
 
     @DeleteMapping("/account/{id}")
