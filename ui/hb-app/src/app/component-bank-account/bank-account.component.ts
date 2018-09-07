@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BankAccountService} from './services/bank-account-service.service';
+import {Alert} from "selenium-webdriver";
 
 @Component({
   selector: 'app-component-bank-account',
@@ -20,12 +21,10 @@ export class BankAccountComponent implements OnInit {
     this.accountService.getAccounts().subscribe((accounts: any[]) => this.accounts = accounts);
   }
 
-  onEditAccount(accountId: number) {
-    console.log(accountId);
-    //this.accountModel = this.accounts.find(value => value.id == accountId);
-  }
-
   onDeleteAccount(accountId: number) {
-    this.accountService.deleteAccount(accountId).subscribe(value => this.fetchAccounts());
+    this.accountService.deleteAccount(accountId)
+      .subscribe(value => this.fetchAccounts(), error1 => {
+        // todo: wystawić coś do błędów
+      });
   }
 }
