@@ -1,15 +1,15 @@
-package com.urban.gosia;
+package com.urban.gosia.models.dto;
 
 import java.math.BigDecimal;
 
-public class AccountBalanceCreateDTO {
+public class AccountBalanceCreateDto {
     private BigDecimal balanceValue;
     private int bankAccountId;
 
-    public AccountBalanceCreateDTO() {
+    public AccountBalanceCreateDto() {
     }
 
-    public AccountBalanceCreateDTO(BigDecimal balanceValue, int bankAccountId) {
+    public AccountBalanceCreateDto(BigDecimal balanceValue, int bankAccountId) {
         this.balanceValue = balanceValue;
         this.bankAccountId = bankAccountId;
     }

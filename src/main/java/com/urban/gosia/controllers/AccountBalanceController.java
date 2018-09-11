@@ -1,9 +1,9 @@
 package com.urban.gosia.controllers;
 
-import com.urban.gosia.AccountBalanceCreateDTO;
 import com.urban.gosia.exceptions.BankAccountNotFoundException;
 import com.urban.gosia.models.AccountBalance;
 import com.urban.gosia.models.BankAccount;
+import com.urban.gosia.models.dto.AccountBalanceCreateDto;
 import com.urban.gosia.repositories.AccountBalanceRepository;
 import com.urban.gosia.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +42,15 @@ public class AccountBalanceController {
     @PostMapping("/accountBalance")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public void createAccountBalance(@RequestBody List<AccountBalanceCreateDTO> createDTO) {
-        createDTO.forEach(accountBalanceCreateDTO -> {
-            int bankAccountId = accountBalanceCreateDTO.getBankAccountId();
+    public void createAccountBalance(@RequestBody List<AccountBalanceCreateDto> createDTO) {
+        createDTO.forEach(accountBalanceCreateDto -> {
+            int bankAccountId = accountBalanceCreateDto.getBankAccountId();
             BankAccount bankAccount = bankAccountService.findById(bankAccountId)
                     .orElseThrow(() -> new BankAccountNotFoundException(bankAccountId));
-            AccountBalance accountBalance = new AccountBalance(accountBalanceCreateDTO.getBalanceValue(), bankAccount);
+            AccountBalance accountBalance = new AccountBalance(accountBalanceCreateDto.getBalanceValue(), bankAccount);
             balanceRepository.save(accountBalance);
 
-            bankAccount.setCurrentBalance(accountBalanceCreateDTO.getBalanceValue());
+            bankAccount.setCurrentBalance(accountBalanceCreateDto.getBalanceValue());
             bankAccount.setBalanceUpdate(accountBalance.getUpdateDate());
 
             bankAccountService.save(bankAccount);

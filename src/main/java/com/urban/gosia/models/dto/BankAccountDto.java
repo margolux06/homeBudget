@@ -1,4 +1,4 @@
-package com.urban.gosia;
+package com.urban.gosia.models.dto;
 
 import com.urban.gosia.models.BankAccount;
 

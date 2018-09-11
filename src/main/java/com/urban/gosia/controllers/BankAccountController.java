@@ -1,8 +1,8 @@
 package com.urban.gosia.controllers;
 
-import com.urban.gosia.BankAccountDto;
 import com.urban.gosia.exceptions.BankAccountNotFoundException;
 import com.urban.gosia.models.BankAccount;
+import com.urban.gosia.models.dto.BankAccountDto;
 import com.urban.gosia.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
