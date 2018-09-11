@@ -1,13 +1,12 @@
-package com.urban.gosia;
+package com.urban.gosia.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
-@Entity
+@Entity(name = "BankAccount")
+@Table(name = "BankAccount")
 public class BankAccount {
-    enum BankAccountTypes {
+    public enum BankAccountTypes {
         EXPENSES, SAVINGS
     }
 
@@ -20,16 +19,19 @@ public class BankAccount {
     @Column(nullable = false)
     private String bankName;
     @Column
+    @Enumerated(EnumType.STRING)
     private BankAccountTypes accountType;
+    @Column
+    private BigDecimal currentBalance = BigDecimal.ZERO;
 
     public BankAccount() {
     }
 
-    public BankAccount(int id, String accountNumber, String bankName, BankAccountTypes accountType) {
-        this.id = id;// TODO: 06.09.2018 usunać to! id generated ma być przy zapisie do bazy dnaych
+    public BankAccount(String accountNumber, String bankName, BankAccountTypes accountType, BigDecimal currentBalance) {
         this.accountNumber = accountNumber;
         this.bankName = bankName;
         this.accountType = accountType;
+        this.currentBalance = currentBalance;
     }
 
     public int getId() {
@@ -62,5 +64,13 @@ public class BankAccount {
 
     public void setAccountType(BankAccountTypes accountType) {
         this.accountType = accountType;
+    }
+
+    public BigDecimal getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(BigDecimal currentBalance) {
+        this.currentBalance = currentBalance;
     }
 }

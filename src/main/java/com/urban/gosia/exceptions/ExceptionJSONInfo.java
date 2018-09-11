@@ -1,4 +1,4 @@
-package com.urban.gosia;
+package com.urban.gosia.exceptions;
 
 public class ExceptionJSONInfo {
     private String message;

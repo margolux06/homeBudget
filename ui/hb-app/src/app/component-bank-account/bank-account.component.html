@@ -17,7 +17,7 @@
       <td>{{account.bankName}}</td>
       <td>{{account.accountType}}</td>
       <td>
-        <button><a routerLink="/accountEdit/{{account.id}}">edytuj</a></button>
+        <button routerLink="/accountEdit/{{account.id}}">edytuj</button>
       </td>
       <td>
         <button (click)="onDeleteAccount(account.id)">usuń</button>

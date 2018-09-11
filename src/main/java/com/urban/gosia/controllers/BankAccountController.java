@@ -1,10 +1,12 @@
-package com.urban.gosia;
+package com.urban.gosia.controllers;
 
+import com.urban.gosia.BankAccountDto;
+import com.urban.gosia.repositories.BankAccountRepository;
+import com.urban.gosia.models.BankAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

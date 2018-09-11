@@ -1,5 +1,7 @@
 package com.urban.gosia;
 
+import com.urban.gosia.models.BankAccount;
+
 public class BankAccountDto {
     private Integer id;
     private String accountNumber;
