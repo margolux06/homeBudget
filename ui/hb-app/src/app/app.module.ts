@@ -1,14 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule }   from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { BankAccountComponent } from './component-bank-account/bank-account.component';
-import { AppRoutingModule } from './/app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { BankAccountService } from './component-bank-account/services/bank-account-service.service';
-import { BankAccountFormComponent } from './bank-account-form/bank-account-form.component';
+import {AppComponent} from './app.component';
+import {BankAccountComponent} from './component-bank-account/bank-account.component';
+import {AppRoutingModule} from './/app-routing.module';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {BankAccountService} from './component-bank-account/services/bank-account-service.service';
+import {BankAccountFormComponent} from './bank-account-form/bank-account-form.component';
+import {AccountBalanceService} from "./account-balance/services/account-balance.service";
+import {AccountBalanceComponent} from './account-balance/account-balance.component';
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { BankAccountFormComponent } from './bank-account-form/bank-account-form.
     AppComponent,
     BankAccountComponent,
     DashboardComponent,
-    BankAccountFormComponent
+    BankAccountFormComponent,
+    AccountBalanceComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import { BankAccountFormComponent } from './bank-account-form/bank-account-form.
     FormsModule
   ],
 
-  providers: [BankAccountService],
+  providers: [BankAccountService, AccountBalanceService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

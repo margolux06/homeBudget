@@ -1,10 +1,12 @@
-export class BankAccountCreateForm {
+export class BankAccount {
 
   constructor(
     public id: number,
     public accountNumber: string,
     public bankName: string,
-    public accountType: BankAccountTypes
+    public accountType: BankAccountTypes,
+    public currentBalance: number,
+    public isChanged: boolean = false
   ){}
 }
 

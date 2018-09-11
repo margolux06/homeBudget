@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {BankAccountCreateForm} from "../models/bank-account-create-form";
+import {BankAccount} from "../models/bank-account";
 
 @Injectable()
 export class BankAccountService {
@@ -9,14 +9,14 @@ export class BankAccountService {
   constructor(private http: HttpClient) { }
 
   getAccounts() {
-    return this.http.get(BankAccountService.bankAccountUrl);
+    return this.http.get<BankAccount[]>(BankAccountService.bankAccountUrl);
   }
 
   findAccountById(accountId: number){
-    return this.http.get<BankAccountCreateForm>(BankAccountService.bankAccountUrl + "/" + accountId);
+    return this.http.get<BankAccount>(BankAccountService.bankAccountUrl + "/" + accountId);
   }
 
-  createAccount(bankAccountFormModel: BankAccountCreateForm){
+  createAccount(bankAccountFormModel: BankAccount){
     return this.http.post(BankAccountService.bankAccountUrl, bankAccountFormModel);
   }
 

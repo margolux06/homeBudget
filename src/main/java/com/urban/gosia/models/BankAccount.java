@@ -1,7 +1,11 @@
 package com.urban.gosia.models;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity(name = "BankAccount")
 @Table(name = "BankAccount")
@@ -21,6 +25,9 @@ public class BankAccount {
     @Column
     @Enumerated(EnumType.STRING)
     private BankAccountTypes accountType;
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date balanceUpdate;
     @Column
     private BigDecimal currentBalance = BigDecimal.ZERO;
 
@@ -72,5 +79,13 @@ public class BankAccount {
 
     public void setCurrentBalance(BigDecimal currentBalance) {
         this.currentBalance = currentBalance;
+    }
+
+    public Date getBalanceUpdate() {
+        return balanceUpdate;
+    }
+
+    public void setBalanceUpdate(Date balanceUpdate) {
+        this.balanceUpdate = balanceUpdate;
     }
 }

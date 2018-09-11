@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {BankAccountCreateForm, BankAccountTypes} from "../component-bank-account/models/bank-account-create-form";
+import {BankAccount, BankAccountTypes} from "../component-bank-account/models/bank-account";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
 
 @Component({
@@ -11,7 +11,7 @@ import {BankAccountService} from "../component-bank-account/services/bank-accoun
 })
 export class BankAccountFormComponent implements OnInit {
   stringIsNumber = value => isNaN(Number(value)) === false;
-  accountModel: BankAccountCreateForm;
+  accountModel: BankAccount;
   accountTypeKeys = [];
 
 
@@ -29,7 +29,7 @@ export class BankAccountFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accountModel = new BankAccountCreateForm(null, "", "", null);
+    this.accountModel = new BankAccount(null, "", "", null);
     this.getAccountIdParam();
 
   }

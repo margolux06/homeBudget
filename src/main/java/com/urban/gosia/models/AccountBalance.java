@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity(name = "AccountBalance")
@@ -20,8 +20,8 @@ public class AccountBalance {
     @Column
     private BigDecimal value;
     @Column
-    @CreationTimestamp
-    private Timestamp updateDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bank_account_id")
     private BankAccount bankAccount;
@@ -32,6 +32,11 @@ public class AccountBalance {
     public AccountBalance(BigDecimal value, BankAccount bankAccount) {
         this.value = value;
         this.bankAccount = bankAccount;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.updateDate = new Date();
     }
 
     public UUID getId() {
@@ -50,11 +55,11 @@ public class AccountBalance {
         this.value = value;
     }
 
-    public Timestamp getUpdateDate() {
+    public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Timestamp updateDate) {
+    public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
