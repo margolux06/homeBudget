@@ -20,6 +20,13 @@ public class GlobalExceptionHandler {
         return new ExceptionJSONInfo(e.getMessage());
     }
 
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(BankAccountNotFoundException.class)
+    @ResponseBody
+    public ExceptionJSONInfo handleBankAccountNotFoundException(BankAccountNotFoundException e) {
+        return new ExceptionJSONInfo(String.format("Account %d not found!", e.getBankAccountId()));
+    }
+
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public void handleException() {

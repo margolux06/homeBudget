@@ -1,10 +1,11 @@
 package com.urban.gosia.controllers;
 
 import com.urban.gosia.AccountBalanceCreateDTO;
+import com.urban.gosia.exceptions.BankAccountNotFoundException;
 import com.urban.gosia.models.AccountBalance;
 import com.urban.gosia.models.BankAccount;
 import com.urban.gosia.repositories.AccountBalanceRepository;
-import com.urban.gosia.repositories.BankAccountRepository;
+import com.urban.gosia.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +17,13 @@ import java.util.stream.Collectors;
 
 @RestController
 public class AccountBalanceController {
-    private final BankAccountRepository accountRepository;
     private final AccountBalanceRepository balanceRepository;
-    private final BankAccountController bankAccountController;
+    private final BankAccountService bankAccountService;
 
     @Autowired
-    public AccountBalanceController(BankAccountRepository accountRepository, AccountBalanceRepository balanceRepository, BankAccountController bankAccountController) {
-        this.accountRepository = accountRepository;
+    public AccountBalanceController(AccountBalanceRepository balanceRepository, BankAccountService bankAccountService) {
         this.balanceRepository = balanceRepository;
-        this.bankAccountController = bankAccountController;
+        this.bankAccountService = bankAccountService;
     }
 
     @GetMapping("/accountBalance/{id}")
@@ -35,7 +34,7 @@ public class AccountBalanceController {
 
     @GetMapping("/accountBalance")
     public List<AccountBalance> listAccountBalances() {
-        return bankAccountController.listBankAccounts().stream()
+        return bankAccountService.getAccounts().stream()
                 .map(bankAccount -> getTopAccountBalance(bankAccount.getId()))
                 .collect(Collectors.toList());
     }
@@ -45,14 +44,16 @@ public class AccountBalanceController {
     @Transactional
     public void createAccountBalance(@RequestBody List<AccountBalanceCreateDTO> createDTO) {
         createDTO.forEach(accountBalanceCreateDTO -> {
-            BankAccount bankAccount = bankAccountController.findBankAccountById(accountBalanceCreateDTO.getBankAccountId());
+            int bankAccountId = accountBalanceCreateDTO.getBankAccountId();
+            BankAccount bankAccount = bankAccountService.findById(bankAccountId)
+                    .orElseThrow(() -> new BankAccountNotFoundException(bankAccountId));
             AccountBalance accountBalance = new AccountBalance(accountBalanceCreateDTO.getBalanceValue(), bankAccount);
             balanceRepository.save(accountBalance);
 
             bankAccount.setCurrentBalance(accountBalanceCreateDTO.getBalanceValue());
             bankAccount.setBalanceUpdate(accountBalance.getUpdateDate());
 
-            accountRepository.save(bankAccount);
+            bankAccountService.save(bankAccount);
         });
     }
 }
