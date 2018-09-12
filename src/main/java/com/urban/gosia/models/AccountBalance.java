@@ -1,6 +1,5 @@
 package com.urban.gosia.models;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -32,6 +31,10 @@ public class AccountBalance {
     public AccountBalance(BigDecimal value, BankAccount bankAccount) {
         this.value = value;
         this.bankAccount = bankAccount;
+    }
+
+    public static AccountBalance empty(BankAccount account) {
+        return new AccountBalance(BigDecimal.ZERO, account);
     }
 
     @PrePersist
