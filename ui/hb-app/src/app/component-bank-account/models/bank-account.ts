@@ -6,6 +6,7 @@ export class BankAccount {
     public bankName: string,
     public accountType: BankAccountTypes,
     public currentBalance: number,
+    public balanceUpdate: number,
     public isChanged: boolean = false
   ){}
 }

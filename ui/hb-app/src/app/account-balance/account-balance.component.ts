@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountBalance} from "./models/AccountBalance";
 import {AccountBalanceService} from "./services/account-balance.service";
 import {AccountBalanceCreateDTO} from "./models/AccountBalanceCreateDTO";
 import {BankAccount} from "../component-bank-account/models/bank-account";
@@ -36,6 +35,7 @@ export class AccountBalanceComponent implements OnInit {
       .map(value => new AccountBalanceCreateDTO(value.id, value.currentBalance));
     this.balanceService.createOrUpdateBalances(this.changedElements).subscribe(value => {
       this.loadBankAccounts();
+      this.hasChanges = false;
     });
   }
 }

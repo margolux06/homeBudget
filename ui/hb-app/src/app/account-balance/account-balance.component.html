@@ -1,25 +1,25 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">Nazwa konta i numer</th>
-    <!--<th scope="col">Ostatnia aktualizacja</th>-->
-    <th scope="col">Stan konta</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let bankAccount of bankAccounts">
-    <td>{{bankAccount.bankName}}<br/>{{bankAccount.accountNumber}}</td>
-    <!--<td>{{bankAccount.updateDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>-->
-    <td>
-      <form #accountBalanceForm="ngForm">
-        <input class="form-control" name="accountBalanceValue"
+<form #accountBalanceForm="ngForm">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Nazwa konta i numer</th>
+      <th scope="col">Ostatnia aktualizacja</th>
+      <th scope="col">Stan konta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let bankAccount of bankAccounts">
+      <td>{{bankAccount.bankName}}<br/>{{bankAccount.accountNumber}}</td>
+      <td>{{bankAccount.balanceUpdate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+      <td>
+        <input class="form-control" name="{{bankAccount.id}}"
                [(ngModel)]="bankAccount.currentBalance"
                (change)="hasChanges = true; bankAccount.isChanged = true"
                [value]="bankAccount.currentBalance"/>
-      </form>
-    </td>
-  </tbody>
-</table>
+      </td>
+    </tbody>
+  </table>
+</form>
 
 <button type="button" class="btn btn-info"
         (click)="onSaveClick()"
