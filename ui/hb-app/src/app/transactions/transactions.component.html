@@ -1,4 +1,4 @@
-<div class="container" style="margin-top: 20px">
+<div class="container" style="margin-top: 50px; margin-bottom: 50px">
 
   <!--TRANSAKCJE CYKLICZNE-->
   <h3 class="col-md-9">Operacje cykliczne</h3>
@@ -11,6 +11,7 @@
       <th scope="col">Kwota</th>
       <th scope="col">Pierwszy termin</th>
       <th scope="col">Ostatni termin</th>
+      <th scope="col">Cykliczność</th>
       <th scope="col">Wych./Przych.</th>
       <th scope="col">Konto bankowe</th>
     </tr>
@@ -28,6 +29,7 @@
       </td>
       <td>{{t.firstPayDate | date:'dd-MM-yyyy'}}</td>
       <td>{{t.lastPayDate | date:'dd-MM-yyyy'}}</td>
+      <td>{{t.period}}</td>
       <td>{{t.costDirection}}</td>
       <td>{{t.bankAccountDto != null ? t.bankAccountDto.bankName : ''}}</td>
     </tr>
