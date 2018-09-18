@@ -29,7 +29,7 @@ export class BankAccountFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accountModel = new BankAccount(null, "", "", null);
+    this.accountModel = new BankAccount(null, "", "", null, 0, 0, false);
     this.getAccountIdParam();
 
   }

@@ -11,6 +11,8 @@ import {BankAccountService} from './component-bank-account/services/bank-account
 import {BankAccountFormComponent} from './bank-account-form/bank-account-form.component';
 import {AccountBalanceService} from "./account-balance/services/account-balance.service";
 import {AccountBalanceComponent} from './account-balance/account-balance.component';
+import {SettlementsComponent} from './settlements/settlements.component';
+import {CostsService} from "./settlements/services/costs.service";
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import {AccountBalanceComponent} from './account-balance/account-balance.compone
     BankAccountComponent,
     DashboardComponent,
     BankAccountFormComponent,
-    AccountBalanceComponent
+    AccountBalanceComponent,
+    SettlementsComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,7 @@ import {AccountBalanceComponent} from './account-balance/account-balance.compone
     ReactiveFormsModule
   ],
 
-  providers: [BankAccountService, AccountBalanceService],
+  providers: [BankAccountService, AccountBalanceService, CostsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

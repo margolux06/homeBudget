@@ -11,11 +11,13 @@ public class BankAccountDto {
     public BankAccountDto() {
     }
 
-    public BankAccountDto(Integer id, String accountNumber, String bankName, BankAccount.BankAccountTypes accountType) {
-        this.id = id;
-        this.accountNumber = accountNumber;
-        this.bankName = bankName;
-        this.accountType = accountType;
+    public static BankAccountDto convertoToDto(BankAccount bankAccount) {
+        BankAccountDto bankAccountDto = new BankAccountDto();
+        bankAccountDto.setAccountNumber(bankAccount.getAccountNumber());
+        bankAccountDto.setAccountType(bankAccount.getAccountType());
+        bankAccountDto.setBankName(bankAccount.getBankName());
+        bankAccountDto.setId(bankAccount.getId());
+        return bankAccountDto;
     }
 
     public Integer getId() {

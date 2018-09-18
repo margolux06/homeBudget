@@ -27,9 +27,9 @@ public class GlobalExceptionHandler {
         return new ExceptionJSONInfo(String.format("Account %d not found!", e.getBankAccountId()));
     }
 
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    public void handleException() {
-        logger.error("Exception handler executed");//returning 404 error code
-    }
+//    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(Exception.class)
+//    public void handleException() {
+//        logger.error("Exception handler executed");//returning 404 error code
+//    }
 }
