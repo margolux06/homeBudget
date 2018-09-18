@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {BankAccountDto, BankAccountTypes} from "../component-bank-account/models/bank-account-dto";
+import {BankAccountDto, BankAccountType} from "../component-bank-account/models/bank-account-dto";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
 import {EnumHelper} from "../EnumHelper";
 
@@ -18,7 +18,7 @@ export class BankAccountFormComponent implements OnInit {
   constructor(
     private accountService: BankAccountService,
     private route: ActivatedRoute) {
-    this.accountTypeKeys = EnumHelper.toArray(BankAccountTypes);
+    this.accountTypeKeys = EnumHelper.toArray(BankAccountType);
   }
 
   ngOnInit() {

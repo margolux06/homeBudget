@@ -1,7 +1,7 @@
 import {BankAccountDto} from "../../component-bank-account/models/bank-account-dto";
 import {CostDirection} from "./CostDirection";
 
-export class CyclicCostsDto {
+export class OneTimeTransactionDto {
 
   constructor(
     public id: string,
@@ -10,7 +10,6 @@ export class CyclicCostsDto {
     public costDirection: CostDirection,
     public payDate: number,
     public bankAccount: BankAccountDto
-  ){
 
-  }
+){}
 }

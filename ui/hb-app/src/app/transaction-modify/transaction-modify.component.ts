@@ -1,21 +1,21 @@
 import {Component, OnInit} from '@angular/core';
-import {CostsDto} from "../transactions/models/CostsDto";
+import {OneTimeTransactionDto} from "../transactions/models/OneTimeTransactionDto";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
 import {BankAccountDto} from "../component-bank-account/models/bank-account-dto";
 import {CostDirection} from "../transactions/models/CostDirection";
 
 @Component({
   selector: 'app-cost-create',
-  templateUrl: './cost-create.component.html',
-  styleUrls: ['./cost-create.component.css']
+  templateUrl: './transaction-modify.component.html',
+  styleUrls: ['./transaction-modify.component.css']
 })
-export class CostCreateComponent implements OnInit {
+export class TransactionModifyComponent implements OnInit {
   directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
   bankAccounts: BankAccountDto[];
-  cost: CostsDto;
+  cost: OneTimeTransactionDto;
 
   constructor(private bankAccountService: BankAccountService) {
-    this.cost = new CostsDto(null, "TestName", 7000.66, CostDirection.INCOMING, 0, null);
+    this.cost = new OneTimeTransactionDto(null, "TestName", 7000.66, CostDirection.INCOMING, 0, null);
   }
 
   ngOnInit() {

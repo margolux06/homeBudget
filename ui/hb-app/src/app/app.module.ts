@@ -12,8 +12,8 @@ import {BankAccountFormComponent} from './bank-account-form/bank-account-form.co
 import {AccountBalanceService} from "./account-balance/services/account-balance.service";
 import {AccountBalanceComponent} from './account-balance/account-balance.component';
 import {Transactions} from './transactions/transactions.component';
-import {CostsService} from "./transactions/services/costs.service";
-import {CostCreateComponent} from './cost-create/cost-create.component';
+import {OneTimeTransactionService} from "./transactions/services/one-time-transaction.service";
+import {TransactionModifyComponent} from './transaction-modify/transaction-modify.component';
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import {CostCreateComponent} from './cost-create/cost-create.component';
     BankAccountFormComponent,
     AccountBalanceComponent,
     Transactions,
-    CostCreateComponent
+    TransactionModifyComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +34,7 @@ import {CostCreateComponent} from './cost-create/cost-create.component';
     ReactiveFormsModule
   ],
 
-  providers: [BankAccountService, AccountBalanceService, CostsService],
+  providers: [BankAccountService, AccountBalanceService, OneTimeTransactionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

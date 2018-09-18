@@ -4,13 +4,13 @@ export class BankAccountDto {
     public id: number,
     public accountNumber: string,
     public bankName: string,
-    public accountType: BankAccountTypes,
+    public accountType: BankAccountType,
     public currentBalance: number,
     public balanceUpdate: number,
     public isChanged: boolean = false
   ){}
 }
 
-export enum BankAccountTypes {
-  EXPENSES, SAVINGS
+export enum BankAccountType {
+  EXPENSES = "EXPENSES", SAVINGS = "SAVINGS"
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CostsService} from "./services/costs.service";
+import {OneTimeTransactionService} from "./services/one-time-transaction.service";
 import {CostDirection} from "./models/CostDirection";
-import {CostsDto} from "./models/CostsDto";
+import {OneTimeTransactionDto} from "./models/OneTimeTransactionDto";
 
 @Component({
   selector: 'app-settlements',
@@ -9,9 +9,9 @@ import {CostsDto} from "./models/CostsDto";
   styleUrls: ['./transactions.component.css']
 })
 export class Transactions implements OnInit {
-  costs: CostsDto[];
+  costs: OneTimeTransactionDto[];
 
-  constructor(private costsService: CostsService) {
+  constructor(private costsService: OneTimeTransactionService) {
   }
 
   ngOnInit() {
@@ -25,7 +25,7 @@ export class Transactions implements OnInit {
     })
   }
 
-  isIncoming(cost: CostsDto) {
+  isIncoming(cost: OneTimeTransactionDto) {
     return cost.costDirection == CostDirection.INCOMING;
   }
 
