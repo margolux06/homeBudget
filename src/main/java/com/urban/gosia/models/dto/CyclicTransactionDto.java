@@ -16,16 +16,32 @@ public class CyclicTransactionDto {
     private Date lastPayDate;
     private OneTimeTransaction.CostDirection costDirection;
     private CyclicTransaction.CyclicCostPeriod period;
-    private BankAccountDto bankAccount;
+    private BankAccountDto bankAccountDto;
 
-    public CyclicTransactionDto(String name, BigDecimal value, Date firstPayDate, Date lastPayDate, Transaction.CostDirection costDirection, CyclicTransaction.CyclicCostPeriod period, BankAccountDto bankAccount) {
+    public CyclicTransactionDto() {
+    }
+
+    public CyclicTransactionDto(String name, BigDecimal value, Date firstPayDate, Date lastPayDate, Transaction.CostDirection costDirection, CyclicTransaction.CyclicCostPeriod period, BankAccountDto bankAccountDto) {
         this.name = name;
         this.value = value;
         this.firstPayDate = firstPayDate;
         this.lastPayDate = lastPayDate;
         this.costDirection = costDirection;
         this.period = period;
-        this.bankAccount = bankAccount;
+        this.bankAccountDto = bankAccountDto;
+    }
+
+    public static CyclicTransactionDto convertToDto(CyclicTransaction transaction) {
+        CyclicTransactionDto dto = new CyclicTransactionDto();
+        dto.setBankAccountDto(BankAccountDto.convertoToDto(transaction.getBankAccount()));
+        dto.setCostDirection(transaction.getCostDirection());
+        dto.setFirstPayDate(transaction.getFirstPayDate());
+        dto.setId(transaction.getId());
+        dto.setLastPayDate(transaction.getLastPayDate());
+        dto.setName(transaction.getName());
+        dto.setPeriod(transaction.getPeriod());
+        dto.setValue(transaction.getValue());
+        return dto;
     }
 
     public UUID getId() {
@@ -84,11 +100,11 @@ public class CyclicTransactionDto {
         this.period = period;
     }
 
-    public BankAccountDto getBankAccount() {
-        return bankAccount;
+    public BankAccountDto getBankAccountDto() {
+        return bankAccountDto;
     }
 
-    public void setBankAccount(BankAccountDto bankAccount) {
-        this.bankAccount = bankAccount;
+    public void setBankAccountDto(BankAccountDto bankAccountDto) {
+        this.bankAccountDto = bankAccountDto;
     }
 }
