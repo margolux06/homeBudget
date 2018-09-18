@@ -1,16 +1,16 @@
 package com.urban.gosia.models.dto;
 
-import com.urban.gosia.models.Costs;
+import com.urban.gosia.models.OneTimeTransaction;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
-public class CostsDto {
+public class OneTimeTransactionDto {
     private UUID id;
     private String name;
     private BigDecimal value;
-    private Costs.CostDirection costDirection;
+    private OneTimeTransaction.CostDirection costDirection;
     private Date payDate;
     private BankAccountDto bankAccount;
 
@@ -38,11 +38,11 @@ public class CostsDto {
         this.value = value;
     }
 
-    public Costs.CostDirection getCostDirection() {
+    public OneTimeTransaction.CostDirection getCostDirection() {
         return costDirection;
     }
 
-    public void setCostDirection(Costs.CostDirection costDirection) {
+    public void setCostDirection(OneTimeTransaction.CostDirection costDirection) {
         this.costDirection = costDirection;
     }
 
@@ -62,14 +62,14 @@ public class CostsDto {
         this.bankAccount = bankAccount;
     }
 
-    public static CostsDto convertToDto(Costs costs){
-        CostsDto costsDto = new CostsDto();
-        costsDto.setBankAccount(BankAccountDto.convertoToDto(costs.getBankAccount()));
-        costsDto.setCostDirection(costs.getCostDirection());
-        costsDto.setId(costs.getId());
-        costsDto.setName(costs.getName());
-        costsDto.setPayDate(costs.getPayDate());
-        costsDto.setValue(costs.getValue());
-        return costsDto;
+    public static OneTimeTransactionDto convertToDto(OneTimeTransaction t){
+        OneTimeTransactionDto dto = new OneTimeTransactionDto();
+        dto.setBankAccount(BankAccountDto.convertoToDto(t.getBankAccount()));
+        dto.setCostDirection(t.getCostDirection());
+        dto.setId(t.getId());
+        dto.setName(t.getName());
+        dto.setPayDate(t.getPayDate());
+        dto.setValue(t.getValue());
+        return dto;
     }
 }

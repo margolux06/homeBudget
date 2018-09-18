@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CostsService} from "./services/costs.service";
-import {CostDirection, CostsDto} from "./models/CostsDto";
+import {CostDirection} from "./models/CostDirection";
+import {CostsDto} from "./models/CostsDto";
 
 @Component({
   selector: 'app-settlements',
