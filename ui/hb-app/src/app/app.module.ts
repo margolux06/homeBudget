@@ -11,8 +11,8 @@ import {BankAccountService} from './component-bank-account/services/bank-account
 import {BankAccountFormComponent} from './bank-account-form/bank-account-form.component';
 import {AccountBalanceService} from "./account-balance/services/account-balance.service";
 import {AccountBalanceComponent} from './account-balance/account-balance.component';
-import {SettlementsComponent} from './settlements/settlements.component';
-import {CostsService} from "./settlements/services/costs.service";
+import {Transactions} from './transactions/transactions.component';
+import {CostsService} from "./transactions/services/costs.service";
 import {CostCreateComponent} from './cost-create/cost-create.component';
 
 
@@ -23,7 +23,7 @@ import {CostCreateComponent} from './cost-create/cost-create.component';
     DashboardComponent,
     BankAccountFormComponent,
     AccountBalanceComponent,
-    SettlementsComponent,
+    Transactions,
     CostCreateComponent
   ],
   imports: [

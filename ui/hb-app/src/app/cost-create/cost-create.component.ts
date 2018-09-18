@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CostDirection, CostsDto} from "../settlements/models/CostsDto";
+import {CostsDto} from "../transactions/models/CostsDto";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
 import {BankAccountDto} from "../component-bank-account/models/bank-account-dto";
+import {CostDirection} from "../transactions/models/CostDirection";
 
 @Component({
   selector: 'app-cost-create',

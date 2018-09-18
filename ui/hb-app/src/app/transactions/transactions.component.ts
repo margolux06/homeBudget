@@ -5,10 +5,10 @@ import {CostsDto} from "./models/CostsDto";
 
 @Component({
   selector: 'app-settlements',
-  templateUrl: './settlements.component.html',
-  styleUrls: ['./settlements.component.css']
+  templateUrl: './transactions.component.html',
+  styleUrls: ['./transactions.component.css']
 })
-export class SettlementsComponent implements OnInit {
+export class Transactions implements OnInit {
   costs: CostsDto[];
 
   constructor(private costsService: CostsService) {
