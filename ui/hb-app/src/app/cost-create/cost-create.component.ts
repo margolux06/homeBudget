@@ -14,7 +14,7 @@ export class CostCreateComponent implements OnInit {
   cost: CostsDto;
 
   constructor(private bankAccountService: BankAccountService) {
-    this.cost = new CostsDto(null, "TestName", 7000.66, false, CostDirection.INCOMING, 0, null);
+    this.cost = new CostsDto(null, "TestName", 7000.66, CostDirection.INCOMING, 0, null);
   }
 
   ngOnInit() {

@@ -6,7 +6,6 @@ export class CostsDto {
     public id: string,
     public name: string,
     public value: number,
-    public cyclic: boolean,
     public costDirection: CostDirection,
     public payDate: number,
     public bankAccount: BankAccountDto

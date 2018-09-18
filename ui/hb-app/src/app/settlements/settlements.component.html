@@ -10,7 +10,6 @@
       <th scope="col">Kwota</th>
       <th scope="col">Termin</th>
       <th scope="col">Wych./Przych.</th>
-      <th scope="col">Cykliczne</th>
       <th scope="col">Konto bankowe</th>
     </tr>
     </thead>
@@ -26,7 +25,6 @@
       }">{{!isIncoming(cost)? -cost.value : cost.value}}</td>
       <td>{{cost.payDate | date:'dd-MM-yyyy'}}</td>
       <td>{{cost.costDirection}}</td>
-      <td>{{cost.cyclic == true ? "Tak" : "Nie"}}</td>
       <td>{{cost.bankAccount.bankName}}</td>
     </tr>
     </tbody>

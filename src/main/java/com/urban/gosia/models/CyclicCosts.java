@@ -7,11 +7,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(name = "Costs")
-@Table(name = "Costs")
-public class Costs {
-    public enum CostDirection{
-        INCOMING, OUTGOING
+@Entity(name = "CyclicCosts")
+@Table(name = "CyclicCosts")
+public class CyclicCosts {
+    public enum CyclicCostPeriod{
+        PER_WEEK,
+        PER_MONTH,
+        PER_THREE_MONTHS,
+        PER_YEAR
     }
 
     @Id
@@ -22,31 +25,40 @@ public class Costs {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private UUID id;
-    @Column
+
+    @Column(nullable = false)
     private String name;
-    @Column
+
+    @Column(nullable = false)
     private BigDecimal value;
-    @Column
-    @Enumerated(EnumType.STRING)
-    private CostDirection costDirection;
-    @Column
+
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date payDate;
+    private Date firstPayDate;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastPayDate;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private CyclicCostPeriod period;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bank_account_id")
     private BankAccount bankAccount;
+
     @Column
     private boolean isActive = true;
 
-    public Costs() {
-    }
-
-    public Costs(String name, BigDecimal value, CostDirection costDirection, Date payDate, BankAccount bankAccount) {
+    public CyclicCosts(String name, BigDecimal value, Date firstPayDate, Date lastPayDate, CyclicCostPeriod period, BankAccount bankAccount, boolean isActive) {
         this.name = name;
         this.value = value;
-        this.costDirection = costDirection;
-        this.payDate = payDate;
+        this.firstPayDate = firstPayDate;
+        this.lastPayDate = lastPayDate;
+        this.period = period;
         this.bankAccount = bankAccount;
+        this.isActive = isActive;
     }
 
     public UUID getId() {
@@ -73,20 +85,28 @@ public class Costs {
         this.value = value;
     }
 
-    public CostDirection getCostDirection() {
-        return costDirection;
+    public Date getFirstPayDate() {
+        return firstPayDate;
     }
 
-    public void setCostDirection(CostDirection costDirection) {
-        this.costDirection = costDirection;
+    public void setFirstPayDate(Date firstPayDate) {
+        this.firstPayDate = firstPayDate;
     }
 
-    public Date getPayDate() {
-        return payDate;
+    public Date getLastPayDate() {
+        return lastPayDate;
     }
 
-    public void setPayDate(Date payDate) {
-        this.payDate = payDate;
+    public void setLastPayDate(Date lastPayDate) {
+        this.lastPayDate = lastPayDate;
+    }
+
+    public CyclicCostPeriod getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(CyclicCostPeriod period) {
+        this.period = period;
     }
 
     public BankAccount getBankAccount() {

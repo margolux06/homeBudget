@@ -10,7 +10,6 @@ public class CostsDto {
     private UUID id;
     private String name;
     private BigDecimal value;
-    private boolean isCyclic = false;
     private Costs.CostDirection costDirection;
     private Date payDate;
     private BankAccountDto bankAccount;
@@ -37,14 +36,6 @@ public class CostsDto {
 
     public void setValue(BigDecimal value) {
         this.value = value;
-    }
-
-    public boolean isCyclic() {
-        return isCyclic;
-    }
-
-    public void setCyclic(boolean cyclic) {
-        isCyclic = cyclic;
     }
 
     public Costs.CostDirection getCostDirection() {
@@ -75,7 +66,6 @@ public class CostsDto {
         CostsDto costsDto = new CostsDto();
         costsDto.setBankAccount(BankAccountDto.convertoToDto(costs.getBankAccount()));
         costsDto.setCostDirection(costs.getCostDirection());
-        costsDto.setCyclic(costs.isCyclic());
         costsDto.setId(costs.getId());
         costsDto.setName(costs.getName());
         costsDto.setPayDate(costs.getPayDate());
