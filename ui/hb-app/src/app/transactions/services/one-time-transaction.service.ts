@@ -4,11 +4,11 @@ import {OneTimeTransactionDto} from "../models/OneTimeTransactionDto";
 
 @Injectable()
 export class OneTimeTransactionService {
-  public static basicCostsUrl = "http://localhost:8080/costs";
+  public static basicCostsUrl = "http://localhost:8080/oneTimeTransactions";
 
   constructor(private http: HttpClient) { }
 
-  public findAllCosts(){
+  public findAllOneTimeTransactions(){
     return this.http.get<OneTimeTransactionDto[]>(OneTimeTransactionService.basicCostsUrl);
   }
 

@@ -12,10 +12,10 @@ import {CostDirection} from "../transactions/models/CostDirection";
 export class TransactionModifyComponent implements OnInit {
   directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
   bankAccounts: BankAccountDto[];
-  cost: OneTimeTransactionDto;
+  oneTimeTrans: OneTimeTransactionDto;
 
   constructor(private bankAccountService: BankAccountService) {
-    this.cost = new OneTimeTransactionDto(null, "TestName", 7000.66, CostDirection.INCOMING, 0, null);
+    this.oneTimeTrans = new OneTimeTransactionDto(null, "TestName", 7000.66, CostDirection.INCOMING, 0, null);
   }
 
   ngOnInit() {

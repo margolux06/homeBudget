@@ -17,7 +17,7 @@ public class OneTimeTransactionController {
         this.oneTimeTransactionService = oneTimeTransactionService;
     }
 
-    @GetMapping("/costs")
+    @GetMapping("/oneTimeTransactions")
     public List<OneTimeTransactionDto> fingAll(){
         return oneTimeTransactionService.findAll();
     }

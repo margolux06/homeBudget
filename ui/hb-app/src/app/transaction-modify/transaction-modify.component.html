@@ -8,7 +8,7 @@
       <input class="form-control"
              id="costName"
              name="costName"
-             [(ngModel)]="cost.name"/>
+             [(ngModel)]="oneTimeTrans.name"/>
     </div>
 
     <div class="form-row">
@@ -18,10 +18,10 @@
         <select class="form-control"
                 id="costDirection"
                 name="costDirection"
-                [(ngModel)]="cost.costDirection">
+                [(ngModel)]="oneTimeTrans.costDirection">
           <option *ngFor="let direction of directions"
                   [value]="direction"
-                  [selected]="direction == cost.costDirection">{{direction}}
+                  [selected]="direction == oneTimeTrans.costDirection">{{direction}}
           </option>
         </select>
       </div>
@@ -36,7 +36,7 @@
           <input class="form-control"
                  id="costValue"
                  name="costValue"
-                 [(ngModel)]="cost.value"/>
+                 [(ngModel)]="oneTimeTrans.value"/>
         </div>
       </div>
 
@@ -47,14 +47,14 @@
                type="date"
                id="costPayDate"
                name="costPayDate"
-               [(ngModel)]="cost.payDate"
-               [value]="cost.payDate"/>
+               [(ngModel)]="oneTimeTrans.payDate"
+               [value]="oneTimeTrans.payDate"/>
       </div>
     </div>
 
     <div class="form-group">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="hasBankAccount" [checked]="cost.bankAccount != null">
+        <input class="form-check-input" type="checkbox" id="hasBankAccount" [checked]="oneTimeTrans.bankAccount != null">
         <label class="form-check-label" for="hasBankAccount">
           Powiązać w kontem bankowym?
         </label>
@@ -67,10 +67,10 @@
       <select class="form-control"
               id="costBankAccount"
               name="costBankAccount"
-              [(ngModel)]="cost.bankAccount">
+              [(ngModel)]="oneTimeTrans.bankAccount">
         <option *ngFor="let bank of bankAccounts"
                 [value]="bank.bankName + ' - ' + bank.accountNumber"
-                [selected]="cost.bankAccount != null && cost.bankAccount.id == bank.id">{{bank.bankName + ' - ' +
+                [selected]="oneTimeTrans.bankAccount != null && oneTimeTrans.bankAccount.id == bank.id">{{bank.bankName + ' - ' +
           bank.accountNumber}}
         </option>
       </select>

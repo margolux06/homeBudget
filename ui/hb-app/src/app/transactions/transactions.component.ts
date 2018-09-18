@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {OneTimeTransactionService} from "./services/one-time-transaction.service";
 import {CostDirection} from "./models/CostDirection";
 import {OneTimeTransactionDto} from "./models/OneTimeTransactionDto";
+import {CyclicTransactionService} from "./services/cyclic-transaction.service";
+import {CyclicTransactionDto} from "./models/CyclicTransactionDto";
 
 @Component({
   selector: 'app-settlements',
@@ -9,24 +11,31 @@ import {OneTimeTransactionDto} from "./models/OneTimeTransactionDto";
   styleUrls: ['./transactions.component.css']
 })
 export class Transactions implements OnInit {
-  costs: OneTimeTransactionDto[];
+  oneTimeTransactionDtos: OneTimeTransactionDto[];
+  cyclicTransactionDtos: CyclicTransactionDto[];
 
-  constructor(private costsService: OneTimeTransactionService) {
+  constructor(private oneTimeTransactionService: OneTimeTransactionService,
+              private cyclicTransactionService: CyclicTransactionService) {
   }
 
   ngOnInit() {
-    this.loadCosts();
+    this.loadOneTimeTransactions();
+    this.loadCyclicTransactions();
   }
 
-  loadCosts() {
-    this.costsService.findAllCosts().subscribe(costsList => {
-      this.costs = costsList;
-      console.log(this.costs);
+  private loadOneTimeTransactions() {
+    this.oneTimeTransactionService.findAllOneTimeTransactions().subscribe(oneTimeTransactions => {
+      this.oneTimeTransactionDtos = oneTimeTransactions;
+    })
+  }
+
+  private loadCyclicTransactions() {
+    this.cyclicTransactionService.findAllCyclicTransactions().subscribe(cyclicTransactions =>{
+      this.cyclicTransactionDtos = cyclicTransactions;
     })
   }
 
   isIncoming(cost: OneTimeTransactionDto) {
     return cost.costDirection == CostDirection.INCOMING;
   }
-
 }

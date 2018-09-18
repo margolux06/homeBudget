@@ -14,6 +14,7 @@ import {AccountBalanceComponent} from './account-balance/account-balance.compone
 import {Transactions} from './transactions/transactions.component';
 import {OneTimeTransactionService} from "./transactions/services/one-time-transaction.service";
 import {TransactionModifyComponent} from './transaction-modify/transaction-modify.component';
+import {CyclicTransactionService} from "./transactions/services/cyclic-transaction.service";
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import {TransactionModifyComponent} from './transaction-modify/transaction-modif
     ReactiveFormsModule
   ],
 
-  providers: [BankAccountService, AccountBalanceService, OneTimeTransactionService],
+  providers: [BankAccountService, AccountBalanceService, OneTimeTransactionService, CyclicTransactionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
