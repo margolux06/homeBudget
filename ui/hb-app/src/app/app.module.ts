@@ -13,6 +13,7 @@ import {AccountBalanceService} from "./account-balance/services/account-balance.
 import {AccountBalanceComponent} from './account-balance/account-balance.component';
 import {SettlementsComponent} from './settlements/settlements.component';
 import {CostsService} from "./settlements/services/costs.service";
+import {CostCreateComponent} from './cost-create/cost-create.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {CostsService} from "./settlements/services/costs.service";
     DashboardComponent,
     BankAccountFormComponent,
     AccountBalanceComponent,
-    SettlementsComponent
+    SettlementsComponent,
+    CostCreateComponent
   ],
   imports: [
     BrowserModule,

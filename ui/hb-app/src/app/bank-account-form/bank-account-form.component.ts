@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Location} from "@angular/common";
-import {BankAccount, BankAccountTypes} from "../component-bank-account/models/bank-account";
+import {BankAccountDto, BankAccountTypes} from "../component-bank-account/models/bank-account-dto";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
+import {EnumHelper} from "../EnumHelper";
 
 @Component({
   selector: 'app-bank-account-form',
@@ -10,26 +10,19 @@ import {BankAccountService} from "../component-bank-account/services/bank-accoun
   styleUrls: ['./bank-account-form.component.css']
 })
 export class BankAccountFormComponent implements OnInit {
-  stringIsNumber = value => isNaN(Number(value)) === false;
-  accountModel: BankAccount;
+
+  accountModel: BankAccountDto;
   accountTypeKeys = [];
 
 
   constructor(
     private accountService: BankAccountService,
-    private route: ActivatedRoute,
-    private location: Location) {
-    this.accountTypeKeys = this.toArray(BankAccountTypes);
-  }
-
-  toArray(enumme) {
-    return Object.keys(enumme)
-      .filter(this.stringIsNumber)
-      .map(key => enumme[key]);
+    private route: ActivatedRoute) {
+    this.accountTypeKeys = EnumHelper.toArray(BankAccountTypes);
   }
 
   ngOnInit() {
-    this.accountModel = new BankAccount(null, "", "", null, 0, 0, false);
+    this.accountModel = new BankAccountDto(null, "", "", null, 0, 0, false);
     this.getAccountIdParam();
 
   }

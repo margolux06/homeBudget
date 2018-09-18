@@ -1,4 +1,4 @@
-import {BankAccount} from "../../component-bank-account/models/bank-account";
+import {BankAccountDto} from "../../component-bank-account/models/bank-account-dto";
 
 export class CostsDto {
 
@@ -9,7 +9,7 @@ export class CostsDto {
     public cyclic: boolean,
     public costDirection: CostDirection,
     public payDate: number,
-    public bankAccount: BankAccount
+    public bankAccount: BankAccountDto
 
 ){}
 }

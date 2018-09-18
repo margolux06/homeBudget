@@ -1,4 +1,4 @@
-export class BankAccount {
+export class BankAccountDto {
 
   constructor(
     public id: number,

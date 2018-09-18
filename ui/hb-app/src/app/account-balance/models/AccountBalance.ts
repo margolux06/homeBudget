@@ -1,4 +1,4 @@
-import {BankAccount} from "../../component-bank-account/models/bank-account";
+import {BankAccountDto} from "../../component-bank-account/models/bank-account-dto";
 
 export class AccountBalance {
 
@@ -6,5 +6,5 @@ export class AccountBalance {
     public id: string,
     public value: number,
     public updateDate: Date,
-    public bankAccount: BankAccount){}
+    public bankAccount: BankAccountDto){}
 }

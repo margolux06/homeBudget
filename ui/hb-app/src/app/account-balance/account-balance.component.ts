@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountBalanceService} from "./services/account-balance.service";
 import {AccountBalanceCreateDTO} from "./models/AccountBalanceCreateDTO";
-import {BankAccount} from "../component-bank-account/models/bank-account";
+import {BankAccountDto} from "../component-bank-account/models/bank-account-dto";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
 
 @Component({
@@ -10,7 +10,7 @@ import {BankAccountService} from "../component-bank-account/services/bank-accoun
   styleUrls: ['./account-balance.component.css']
 })
 export class AccountBalanceComponent implements OnInit {
-  bankAccounts: BankAccount[] = [];
+  bankAccounts: BankAccountDto[] = [];
   hasChanges: boolean = false;
   private changedElements: AccountBalanceCreateDTO[];
 
