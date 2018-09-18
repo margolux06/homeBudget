@@ -12,7 +12,7 @@ public class OneTimeTransactionDto {
     private BigDecimal value;
     private OneTimeTransaction.CostDirection costDirection;
     private Date payDate;
-    private BankAccountDto bankAccount;
+    private BankAccountDto bankAccountDto;
 
     public UUID getId() {
         return id;
@@ -54,17 +54,17 @@ public class OneTimeTransactionDto {
         this.payDate = payDate;
     }
 
-    public BankAccountDto getBankAccount() {
-        return bankAccount;
+    public BankAccountDto getBankAccountDto() {
+        return bankAccountDto;
     }
 
-    public void setBankAccount(BankAccountDto bankAccount) {
-        this.bankAccount = bankAccount;
+    public void setBankAccountDto(BankAccountDto bankAccountDto) {
+        this.bankAccountDto = bankAccountDto;
     }
 
     public static OneTimeTransactionDto convertToDto(OneTimeTransaction t){
         OneTimeTransactionDto dto = new OneTimeTransactionDto();
-        dto.setBankAccount(BankAccountDto.convertoToDto(t.getBankAccount()));
+        dto.setBankAccountDto(BankAccountDto.convertoToDto(t.getBankAccount()));
         dto.setCostDirection(t.getCostDirection());
         dto.setId(t.getId());
         dto.setName(t.getName());
