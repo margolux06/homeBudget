@@ -9,8 +9,8 @@ export class CyclicTransactionDto {
     public name: string,
     public value: number,
     public costDirection: CostDirection,
-    public firstPayDate: number,
-    public lastPayDate, number,
+    public firstPayDate: Date,
+    public lastPayDate: Date,
     public period: CyclicCostPeriod,
     public bankAccountDto: BankAccountDto
   ){}

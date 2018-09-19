@@ -47,6 +47,7 @@
                type="date"
                id="costPayDate"
                name="costPayDate"
+               useValueAsDate
                [(ngModel)]="oneTimeTrans.payDate"
                [value]="oneTimeTrans.payDate"/>
       </div>
@@ -54,7 +55,8 @@
 
     <div class="form-group">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="hasBankAccount" [checked]="oneTimeTrans.bankAccount != null">
+        <input class="form-check-input" type="checkbox" id="hasBankAccount"
+               [checked]="oneTimeTrans.bankAccountDto != null">
         <label class="form-check-label" for="hasBankAccount">
           Powiązać w kontem bankowym?
         </label>
@@ -67,10 +69,11 @@
       <select class="form-control"
               id="costBankAccount"
               name="costBankAccount"
-              [(ngModel)]="oneTimeTrans.bankAccount">
+              [(ngModel)]="oneTimeTrans.bankAccountDto">
         <option *ngFor="let bank of bankAccounts"
                 [value]="bank.bankName + ' - ' + bank.accountNumber"
-                [selected]="oneTimeTrans.bankAccount != null && oneTimeTrans.bankAccount.id == bank.id">{{bank.bankName + ' - ' +
+                [selected]="oneTimeTrans.bankAccountDto != null && oneTimeTrans.bankAccountDto.id === bank.id">
+          {{bank.bankName + ' - ' +
           bank.accountNumber}}
         </option>
       </select>

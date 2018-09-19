@@ -23,7 +23,7 @@ export class TransactionModifyComponent implements OnInit {
               private oneTimeTransactionService: OneTimeTransactionService,
               private cyclicTransactionService: CyclicTransactionService,
               private route: ActivatedRoute) {
-    this.oneTimeTrans = new OneTimeTransactionDto(null, "TestName", 7000.66, CostDirection.INCOMING, 0, null);
+    this.oneTimeTrans = new OneTimeTransactionDto(null, "TestName", 7000.66, CostDirection.INCOMING, new Date("2018-01-01"), null);
   }
 
   ngOnInit() {
@@ -44,6 +44,7 @@ export class TransactionModifyComponent implements OnInit {
       const id = this.route.snapshot.paramMap.get("cyclicId");
       this.cyclicTransactionService.findAccountById(id).subscribe(cyclicTransaction => {
         this.cyclicTras = cyclicTransaction;
+        console.log(JSON.stringify(this.cyclicTras));
       }, error1 => {
       //  todo:
       });
@@ -55,6 +56,7 @@ export class TransactionModifyComponent implements OnInit {
       const id = this.route.snapshot.paramMap.get("oneTimeId");
       this.oneTimeTransactionService.findAccountById(id).subscribe(oneTimeTransaction => {
         this.oneTimeTrans = oneTimeTransaction;
+        console.log(JSON.stringify(this.oneTimeTrans));
       }, error1 => {
         //  todo:
       });

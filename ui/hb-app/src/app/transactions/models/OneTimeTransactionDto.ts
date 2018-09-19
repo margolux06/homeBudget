@@ -8,8 +8,8 @@ export class OneTimeTransactionDto {
     public name: string,
     public value: number,
     public costDirection: CostDirection,
-    public payDate: number,
+    public payDate: Date,
     public bankAccountDto: BankAccountDto
-
-){}
+  ) {
+  }
 }

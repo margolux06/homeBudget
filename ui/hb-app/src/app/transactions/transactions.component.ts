@@ -26,6 +26,7 @@ export class Transactions implements OnInit {
   private loadOneTimeTransactions() {
     this.oneTimeTransactionService.findAllOneTimeTransactions().subscribe(oneTimeTransactions => {
       this.oneTimeTransactionDtos = oneTimeTransactions;
+      console.log(this.oneTimeTransactionDtos);
     })
   }
 
