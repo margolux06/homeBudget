@@ -12,4 +12,7 @@ export class OneTimeTransactionService {
     return this.http.get<OneTimeTransactionDto[]>(OneTimeTransactionService.basicCostsUrl);
   }
 
+  findAccountById(id: string) {
+    return this.http.get<OneTimeTransactionDto>(OneTimeTransactionService.basicCostsUrl + "/" + id);
+  }
 }

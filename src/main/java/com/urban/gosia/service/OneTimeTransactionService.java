@@ -1,11 +1,15 @@
 package com.urban.gosia.service;
 
+import com.urban.gosia.exceptions.TransactionNotFoundException;
+import com.urban.gosia.models.OneTimeTransaction;
 import com.urban.gosia.models.dto.OneTimeTransactionDto;
 import com.urban.gosia.repositories.OneTimeTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,5 +26,11 @@ public class OneTimeTransactionService {
         return oneTimeTransactionRepository.findAll().stream()
                 .map(OneTimeTransactionDto::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    public OneTimeTransactionDto findById(UUID id) {
+        OneTimeTransaction oneTimeTransaction = Optional.ofNullable(oneTimeTransactionRepository.findOne(id))
+                .orElseThrow(() -> new TransactionNotFoundException(id));
+        return OneTimeTransactionDto.convertToDto(oneTimeTransaction);
     }
 }

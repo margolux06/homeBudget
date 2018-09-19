@@ -6,10 +6,14 @@ import {CyclicTransactionDto} from "../models/CyclicTransactionDto";
 export class CyclicTransactionService {
   public static basicCyclicTransactionUrl = "http://localhost:8080/cyclicTransaction";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  findAllCyclicTransactions(){
+  findAllCyclicTransactions() {
     return this.http.get<CyclicTransactionDto[]>(CyclicTransactionService.basicCyclicTransactionUrl);
   }
 
+  findAccountById(cyclicId: string) {
+    return this.http.get<CyclicTransactionDto>(CyclicTransactionService.basicCyclicTransactionUrl + "/" + cyclicId);
+  }
 }

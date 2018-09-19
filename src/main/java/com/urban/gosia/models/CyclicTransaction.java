@@ -7,6 +7,7 @@ import java.util.Date;
 @Entity(name = "CyclicTransaction")
 @Table(name = "CyclicTransaction")
 public class CyclicTransaction extends Transaction {
+
     public enum CyclicCostPeriod {
         PER_WEEK,
         PER_MONTH,

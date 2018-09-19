@@ -15,6 +15,7 @@
       <th scope="col">Wych./Przych.</th>
       <th scope="col">Konto bankowe</th>
       <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody *ngFor="let t of cyclicTransactionDtos">
@@ -33,7 +34,8 @@
       <td>{{t.period}}</td>
       <td>{{t.costDirection}}</td>
       <td>{{t.bankAccountDto != null ? t.bankAccountDto.bankName : ''}}</td>
-      <td><a routerLink="/costCreate"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
+      <td><a routerLink="/costCyclicEdit/{{t.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
+      <td><a routerLink="/costCreate"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>
     </tbody>
   </table>
@@ -51,22 +53,26 @@
       <th scope="col">Termin</th>
       <th scope="col">Wych./Przych.</th>
       <th scope="col">Konto bankowe</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
     </thead>
-    <tbody *ngFor="let cost of oneTimeTransactionDtos">
+    <tbody *ngFor="let oneTime of oneTimeTransactionDtos">
     <tr>
       <td [ngClass]="{
-      'table-success': isIncoming(cost),
-      'table-danger' : !isIncoming(cost)
+      'table-success': isIncoming(oneTime),
+      'table-danger' : !isIncoming(oneTime)
       }"></td>
-      <td>{{cost.name}}</td>
+      <td>{{oneTime.name}}</td>
       <td [ngClass]="{
-        'text-danger': !isIncoming(cost)
-      }">{{!isIncoming(cost)? -cost.value : cost.value}}
+        'text-danger': !isIncoming(oneTime)
+      }">{{!isIncoming(oneTime)? -oneTime.value : oneTime.value}}
       </td>
-      <td>{{cost.payDate | date:'dd-MM-yyyy'}}</td>
-      <td>{{cost.costDirection}}</td>
-      <td>{{cost.bankAccountDto.bankName}}</td>
+      <td>{{oneTime.payDate | date:'dd-MM-yyyy'}}</td>
+      <td>{{oneTime.costDirection}}</td>
+      <td>{{oneTime.bankAccountDto.bankName}}</td>
+      <td><a routerLink="/oneTimeEdit/{{oneTime.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
+      <td><a routerLink="/costCreate"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>
     </tbody>
   </table>

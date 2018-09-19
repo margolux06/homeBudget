@@ -16,15 +16,11 @@
       <td>{{account.accountNumber}}</td>
       <td>{{account.bankName}}</td>
       <td>{{account.accountType}}</td>
-      <td>
-        <button routerLink="/accountEdit/{{account.id}}">edytuj</button>
-      </td>
-      <td>
-        <button (click)="onDeleteAccount(account.id)">usuń</button>
-      </td>
+      <td><a routerLink="/accountEdit/{{account.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
+      <td><a (click)="onDeleteAccount(account.id)"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>
     </tbody>
   </table>
 
-  <a href="/accountCreate">Dodaj nowe konto</a>
+  <button class="btn btn-info" routerLink="/accountCreate">Dodaj nowe konto</button>
 </div>

@@ -4,9 +4,11 @@ import com.urban.gosia.models.dto.OneTimeTransactionDto;
 import com.urban.gosia.service.OneTimeTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class OneTimeTransactionController {
@@ -22,4 +24,8 @@ public class OneTimeTransactionController {
         return oneTimeTransactionService.findAll();
     }
 
+    @GetMapping("/oneTimeTransactions/{id}")
+    public OneTimeTransactionDto findById(@PathVariable("id") UUID id){
+        return oneTimeTransactionService.findById(id);
+    }
 }
