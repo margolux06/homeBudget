@@ -1,17 +1,8 @@
 package com.urban.gosia.exceptions;
 
-public class ExceptionJSONInfo {
-    private String message;
+import lombok.Data;
 
-    public ExceptionJSONInfo(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
+@Data
+class ExceptionJSONInfo {
+    private final String message;
 }

@@ -1,9 +1,6 @@
-package com.urban.gosia.controllers;
+package com.urban.gosia.accountBalance;
 
-import com.urban.gosia.models.AccountBalance;
-import com.urban.gosia.models.dto.AccountBalanceCreateDto;
-import com.urban.gosia.service.AccountBalanceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +8,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class AccountBalanceController {
     private final AccountBalanceService balanceService;
-
-    @Autowired
-    public AccountBalanceController(AccountBalanceService balanceService) {
-        this.balanceService = balanceService;
-    }
 
     @GetMapping("/accountBalance/{id}")
     public AccountBalance getTopAccountBalance(@PathVariable("id") int bankAccountID) {

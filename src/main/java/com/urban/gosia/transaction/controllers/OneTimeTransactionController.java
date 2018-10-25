@@ -1,8 +1,8 @@
-package com.urban.gosia.controllers;
+package com.urban.gosia.transaction.controllers;
 
-import com.urban.gosia.models.dto.OneTimeTransactionDto;
-import com.urban.gosia.service.OneTimeTransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.urban.gosia.transaction.models.dto.OneTimeTransactionDto;
+import com.urban.gosia.transaction.services.OneTimeTransactionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,22 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 public class OneTimeTransactionController {
     private final OneTimeTransactionService oneTimeTransactionService;
 
-    @Autowired
-    public OneTimeTransactionController(OneTimeTransactionService oneTimeTransactionService) {
-        this.oneTimeTransactionService = oneTimeTransactionService;
-    }
-
     @GetMapping("/oneTimeTransactions")
-    public List<OneTimeTransactionDto> fingAll(){
+    public List<OneTimeTransactionDto> fingAll() {
         return oneTimeTransactionService.findAll();
     }
 
     @GetMapping("/oneTimeTransactions/{id}")
-    public OneTimeTransactionDto findById(@PathVariable("id") UUID id){
+    public OneTimeTransactionDto findById(@PathVariable("id") UUID id) {
         return oneTimeTransactionService.findById(id);
     }
 }

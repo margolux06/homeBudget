@@ -1,21 +1,15 @@
-package com.urban.gosia.service;
+package com.urban.gosia.bankAccount;
 
-import com.urban.gosia.models.BankAccount;
-import com.urban.gosia.repositories.BankAccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class BankAccountService {
     private final BankAccountRepository accountRepository;
-
-    @Autowired
-    public BankAccountService(BankAccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
 
     public List<BankAccount> getAccounts() {
         return accountRepository.findAll();
@@ -29,7 +23,7 @@ public class BankAccountService {
         accountRepository.save(account);
     }
 
-    public void delete(int id) {
+    void delete(int id) {
         accountRepository.delete(id);
     }
 }

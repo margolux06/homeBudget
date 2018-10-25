@@ -1,6 +1,5 @@
-package com.urban.gosia.repositories;
+package com.urban.gosia.accountBalance;
 
-import com.urban.gosia.models.AccountBalance;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
