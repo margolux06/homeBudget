@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {OneTimeTransactionService} from "../transactions/services/one-time-transaction.service";
 import {CyclicTransactionService} from "../transactions/services/cyclic-transaction.service";
 import {CyclicTransactionDto} from "../transactions/models/CyclicTransactionDto";
+import {Subject, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-cost-create',
@@ -15,17 +16,20 @@ import {CyclicTransactionDto} from "../transactions/models/CyclicTransactionDto"
 })
 export class TransactionModifyComponent implements OnInit {
   directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
-  bankAccounts: BankAccountDto[];
+
+  bankAccounts: Subject<BankAccountDto[]> = new Subject();
   oneTimeTrans: OneTimeTransactionDto;
   cyclicTras: CyclicTransactionDto;
-  dateFormat = 'dd-mm-yyyy';
+
   datepickerOpts = {
     autoclose: true,
     todayBtn: 'linked',
     todayHighlight: true,
     assumeNearbyYear: true,
-    format: this.dateFormat
+    format: 'dd-mm-yyyy'
   };
+
+  accoutSubscription: Subscription;
 
   constructor(private bankAccountService: BankAccountService,
               private oneTimeTransactionService: OneTimeTransactionService,
@@ -38,16 +42,23 @@ export class TransactionModifyComponent implements OnInit {
   ngOnInit() {
     this.loadCyclicTransaction();
     this.loadOneTimeTransaction();
-    this.loadBankAccounts();
   }
 
-  loadBankAccounts() {
-    this.bankAccountService.getAccounts()
+  private fetchAccounts() {
+    this.accoutSubscription = this.bankAccountService.getAccounts()
       .subscribe(accounts => {
-        this.bankAccounts = accounts;
-        console.log(this.bankAccounts);
-      }
-    )
+          console.log(accounts);
+          this.bankAccounts.next(accounts);
+        }
+      )
+  }
+
+  ngOnDestroy() {
+    this.accoutSubscription.unsubscribe();
+  }
+
+  compareAccounts(a1: BankAccountDto, a2: BankAccountDto){
+    return a1.id == a2.id;
   }
 
   private loadCyclicTransaction() {
@@ -68,9 +79,12 @@ export class TransactionModifyComponent implements OnInit {
       this.oneTimeTransactionService.findAccountById(id).subscribe(oneTimeTransaction => {
         this.oneTimeTrans = oneTimeTransaction;
         this.oneTimeTrans.payDate = new Date(this.oneTimeTrans.payDate);
-        console.log(JSON.stringify(this.oneTimeTrans));
+        console.log(this.oneTimeTrans);
+
+        this.fetchAccounts();
       }, error1 => {
         //  todo:
+        console.log(error1);
       });
     }
   }

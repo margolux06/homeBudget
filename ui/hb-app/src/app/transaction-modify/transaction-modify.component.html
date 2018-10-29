@@ -71,10 +71,10 @@
       <select class="form-control"
               id="costBankAccount"
               name="costBankAccount"
+              [compareWith]="compareAccounts"
               [(ngModel)]="oneTimeTrans.bankAccountDto">
-        <option *ngFor="let bank of bankAccounts"
-                [value]="bank.bankName + ' - ' + bank.accountNumber"
-                [selected]="oneTimeTrans.bankAccountDto.id == bank.id">
+        <option *ngFor="let bank of (bankAccounts | async)"
+                [ngValue]="bank">
           {{bank.bankName + ' - ' + bank.accountNumber}}
         </option>
       </select>
