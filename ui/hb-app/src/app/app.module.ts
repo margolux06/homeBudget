@@ -16,7 +16,7 @@ import {OneTimeTransactionService} from "./transactions/services/one-time-transa
 import {TransactionModifyComponent} from './transaction-modify/transaction-modify.component';
 import {CyclicTransactionService} from "./transactions/services/cyclic-transaction.service";
 import {DateValueAccessorModule} from "angular-date-value-accessor";
-
+import {NKDatetimeModule} from 'ng2-datetime/ng2-datetime';
 
 @NgModule({
   declarations: [
@@ -34,6 +34,7 @@ import {DateValueAccessorModule} from "angular-date-value-accessor";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NKDatetimeModule,
     DateValueAccessorModule
   ],
 
