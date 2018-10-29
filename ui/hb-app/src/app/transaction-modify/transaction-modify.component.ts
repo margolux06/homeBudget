@@ -18,23 +18,34 @@ export class TransactionModifyComponent implements OnInit {
   bankAccounts: BankAccountDto[];
   oneTimeTrans: OneTimeTransactionDto;
   cyclicTras: CyclicTransactionDto;
+  dateFormat = 'dd-mm-yyyy';
+  datepickerOpts = {
+    autoclose: true,
+    todayBtn: 'linked',
+    todayHighlight: true,
+    assumeNearbyYear: true,
+    format: this.dateFormat
+  };
 
   constructor(private bankAccountService: BankAccountService,
               private oneTimeTransactionService: OneTimeTransactionService,
               private cyclicTransactionService: CyclicTransactionService,
               private route: ActivatedRoute) {
-    this.oneTimeTrans = new OneTimeTransactionDto(null, "TestName", 7000.66, CostDirection.INCOMING, new Date("2018-01-01"), null);
+    this.oneTimeTrans = new OneTimeTransactionDto(null, "TestName", 7000.66, CostDirection.INCOMING,
+      new Date(), null);
   }
 
   ngOnInit() {
-    this.loadBankAccounts();
     this.loadCyclicTransaction();
     this.loadOneTimeTransaction();
+    this.loadBankAccounts();
   }
 
-  loadBankAccounts(){
-    this.bankAccountService.getAccounts().subscribe(accounts =>{
-      this.bankAccounts = accounts;
+  loadBankAccounts() {
+    this.bankAccountService.getAccounts()
+      .subscribe(accounts => {
+        this.bankAccounts = accounts;
+        console.log(this.bankAccounts);
       }
     )
   }
@@ -46,7 +57,7 @@ export class TransactionModifyComponent implements OnInit {
         this.cyclicTras = cyclicTransaction;
         console.log(JSON.stringify(this.cyclicTras));
       }, error1 => {
-      //  todo:
+        //  todo:
       });
     }
   }
@@ -56,6 +67,7 @@ export class TransactionModifyComponent implements OnInit {
       const id = this.route.snapshot.paramMap.get("oneTimeId");
       this.oneTimeTransactionService.findAccountById(id).subscribe(oneTimeTransaction => {
         this.oneTimeTrans = oneTimeTransaction;
+        this.oneTimeTrans.payDate = new Date(this.oneTimeTrans.payDate);
         console.log(JSON.stringify(this.oneTimeTrans));
       }, error1 => {
         //  todo:

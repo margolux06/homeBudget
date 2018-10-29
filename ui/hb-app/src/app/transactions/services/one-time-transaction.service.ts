@@ -4,7 +4,7 @@ import {OneTimeTransactionDto} from "../models/OneTimeTransactionDto";
 
 @Injectable()
 export class OneTimeTransactionService {
-  public static basicCostsUrl = "http://localhost:8080/oneTimeTransactions";
+  public static basicCostsUrl = "http://localhost:8081/oneTimeTransactions";
 
   constructor(private http: HttpClient) { }
 

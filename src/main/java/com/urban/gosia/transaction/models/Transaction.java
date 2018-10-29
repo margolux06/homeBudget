@@ -34,7 +34,7 @@ public abstract class Transaction {
     @Column
     @Enumerated(EnumType.STRING)
     private Transaction.CostDirection costDirection;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bank_account_id")
     private BankAccount bankAccount;
     @Column

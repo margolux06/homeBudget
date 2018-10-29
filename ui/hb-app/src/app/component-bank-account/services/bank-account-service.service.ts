@@ -1,14 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BankAccountDto} from "../models/bank-account-dto";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class BankAccountService {
-  private static bankAccountUrl = 'http://localhost:8080/account';
+  private static bankAccountUrl = 'http://localhost:8081/account';
 
   constructor(private http: HttpClient) { }
 
-  getAccounts() {
+  getAccounts(): Observable<BankAccountDto[]> {
     return this.http.get<BankAccountDto[]>(BankAccountService.bankAccountUrl);
   }
 
