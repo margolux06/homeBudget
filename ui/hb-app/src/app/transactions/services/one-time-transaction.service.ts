@@ -20,4 +20,8 @@ export class OneTimeTransactionService {
     return this.http.get<OneTimeTransactionDto>(OneTimeTransactionService.basicCostsUrl + "/" + id)
       .map(value => Helper.fromJsonToObject(value, OneTimeTransactionDto));
   }
+
+  save(transaction: OneTimeTransactionDto) {
+    return this.http.post(OneTimeTransactionService.basicCostsUrl, transaction);
+  }
 }

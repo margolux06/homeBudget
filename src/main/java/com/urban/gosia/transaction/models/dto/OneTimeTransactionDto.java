@@ -1,5 +1,6 @@
 package com.urban.gosia.transaction.models.dto;
 
+import com.urban.gosia.bankAccount.BankAccount;
 import com.urban.gosia.bankAccount.BankAccountDto;
 import com.urban.gosia.transaction.models.OneTimeTransaction;
 import com.urban.gosia.transaction.models.Transaction;
@@ -24,7 +25,7 @@ public class OneTimeTransactionDto {
     private Date payDate;
     private BankAccountDto bankAccountDto;
 
-    public static OneTimeTransactionDto convertToDto(OneTimeTransaction t) {
+    public static OneTimeTransactionDto convert(OneTimeTransaction t) {
         return OneTimeTransactionDto.builder()
                 .id(t.getId())
                 .name(t.getName())
@@ -33,5 +34,18 @@ public class OneTimeTransactionDto {
                 .payDate(t.getPayDate())
                 .bankAccountDto(BankAccountDto.convertoToDto(t.getBankAccount()))
                 .build();
+    }
+
+    public static OneTimeTransaction convert(OneTimeTransactionDto dto, BankAccount bankAccount) {
+        OneTimeTransaction transaction = new OneTimeTransaction();
+        transaction.setPayDate(dto.payDate);
+        transaction.setBankAccount(bankAccount);
+        transaction.setCostDirection(dto.costDirection);
+        transaction.setName(dto.name);
+        transaction.setValue(dto.value);
+        if (dto.getId() != null) {
+            transaction.setId(dto.id);
+        }
+        return transaction;
     }
 }

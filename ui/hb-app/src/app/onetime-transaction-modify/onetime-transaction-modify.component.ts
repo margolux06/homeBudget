@@ -5,7 +5,6 @@ import {BankAccountDto} from "../component-bank-account/models/bank-account-dto"
 import {CostDirection} from "../transactions/models/CostDirection";
 import {ActivatedRoute} from "@angular/router";
 import {OneTimeTransactionService} from "../transactions/services/one-time-transaction.service";
-import {CyclicTransactionService} from "../transactions/services/cyclic-transaction.service";
 import {Subject, Subscription} from "rxjs";
 
 @Component({
@@ -20,7 +19,7 @@ export class OnetimeTransactionModifyComponent implements OnInit {
   directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
   bankAccounts: Subject<BankAccountDto[]> = new Subject();
   transaction: OneTimeTransactionDto = new OneTimeTransactionDto();
-  
+
   datepickerOpts = {
     autoclose: true,
     todayBtn: 'linked',
@@ -31,25 +30,38 @@ export class OnetimeTransactionModifyComponent implements OnInit {
 
   constructor(private bankAccountService: BankAccountService,
               private oneTimeTransactionService: OneTimeTransactionService,
-              private cyclicTransactionService: CyclicTransactionService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.loadOneTimeTransaction();
+    this.fetchAccounts();
   }
 
   compareAccounts(a1: BankAccountDto, a2: BankAccountDto) {
+    if (a1 == null) {
+      return a2;
+    }
+    if (a2 == null) {
+      return a1;
+    }
     return a1.id == a2.id;
   }
 
   onSubmit() {
-
+    this.oneTimeTransactionService.save(this.transaction).subscribe(
+      value => {
+        window.history.back();
+      }, error1 => {
+        console.log(error1);
+      })
   }
 
   private fetchAccounts() {
     this.accoutSubscription = this.bankAccountService.getAccounts()
-      .subscribe(accounts => this.bankAccounts.next(accounts))
+      .subscribe(accounts => {
+        this.loadOneTimeTransaction();
+        this.bankAccounts.next(accounts);
+      })
   }
 
   private loadOneTimeTransaction() {
@@ -60,8 +72,6 @@ export class OnetimeTransactionModifyComponent implements OnInit {
         .subscribe(oneTimeTransaction => {
           this.transaction = oneTimeTransaction.get();
           console.log(this.transaction);
-
-          this.fetchAccounts();
         }, error1 => {
           //  todo:
           console.log(error1);
