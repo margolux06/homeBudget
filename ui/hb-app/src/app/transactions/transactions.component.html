@@ -34,7 +34,7 @@
       <td>{{t.period}}</td>
       <td>{{t.costDirection}}</td>
       <td>{{t.bankAccountDto != null ? t.bankAccountDto.bankName : ''}}</td>
-      <td><a routerLink="/costCyclicEdit/{{t.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
+      <td><a routerLink="/cyclicModify/{{t.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
       <td><a routerLink="/costCreate"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>
     </tbody>
@@ -71,7 +71,7 @@
       <td>{{oneTime.payDate | date:'dd-MM-yyyy'}}</td>
       <td>{{oneTime.costDirection}}</td>
       <td>{{oneTime.bankAccountDto.bankName}}</td>
-      <td><a routerLink="/oneTimeEdit/{{oneTime.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
+      <td><a routerLink="/onetimeModify/{{oneTime.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
       <td><a routerLink="/costCreate"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>
     </tbody>

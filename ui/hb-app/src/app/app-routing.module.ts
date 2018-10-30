@@ -4,7 +4,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {BankAccountComponent} from './component-bank-account/bank-account.component';
 import {BankAccountFormComponent} from "./bank-account-form/bank-account-form.component";
 import {Transactions} from "./transactions/transactions.component";
-import {TransactionModifyComponent} from "./transaction-modify/transaction-modify.component";
+import {OnetimeTransactionModifyComponent} from "./onetime-transaction-modify/onetime-transaction-modify.component";
+import {CyclicTransactionModifyComponent} from "./cyclic-transaction-modify/cyclic-transaction-modify.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
@@ -12,9 +13,9 @@ const routes: Routes = [
   {path: 'accountCreate', component: BankAccountFormComponent},
   {path: 'accountEdit/:id', component: BankAccountFormComponent},
   {path: 'transactions', component: Transactions},
-  {path: 'costCreate', component: TransactionModifyComponent},
-  {path: 'costCyclicEdit/:cyclicId', component: TransactionModifyComponent},
-  {path: 'oneTimeEdit/:oneTimeId', component: TransactionModifyComponent}
+  {path: 'costCreate', component: OnetimeTransactionModifyComponent},
+  {path: 'onetimeModify/:id', component: OnetimeTransactionModifyComponent},
+  {path: 'cyclicModify/:id', component: CyclicTransactionModifyComponent}
 ];
 
 @NgModule({

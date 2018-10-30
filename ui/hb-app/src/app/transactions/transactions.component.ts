@@ -6,7 +6,7 @@ import {CyclicTransactionService} from "./services/cyclic-transaction.service";
 import {CyclicTransactionDto} from "./models/CyclicTransactionDto";
 
 @Component({
-  selector: 'app-settlements',
+  selector: 'app-transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.css']
 })

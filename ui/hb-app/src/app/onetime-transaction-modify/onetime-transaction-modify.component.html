@@ -8,7 +8,7 @@
       <input class="form-control"
              id="costName"
              name="costName"
-             [(ngModel)]="oneTimeTrans.name"/>
+             [(ngModel)]="transaction.name"/>
     </div>
 
     <div class="form-row">
@@ -18,10 +18,10 @@
         <select class="form-control"
                 id="costDirection"
                 name="costDirection"
-                [(ngModel)]="oneTimeTrans.costDirection">
+                [(ngModel)]="transaction.costDirection">
           <option *ngFor="let direction of directions"
                   [value]="direction"
-                  [selected]="direction == oneTimeTrans.costDirection">{{direction}}
+                  [selected]="direction == transaction.costDirection">{{direction}}
           </option>
         </select>
       </div>
@@ -36,7 +36,7 @@
           <input class="form-control"
                  id="costValue"
                  name="costValue"
-                 [(ngModel)]="oneTimeTrans.value"/>
+                 [(ngModel)]="transaction.value"/>
         </div>
       </div>
 
@@ -48,7 +48,7 @@
           name="costPayDate"
           [timepicker]="false"
           [datepicker]="datepickerOpts"
-          [(ngModel)]="oneTimeTrans.payDate"></datetime>
+          [(ngModel)]="transaction.payDate"></datetime>
 
       </div>
     </div>
@@ -58,7 +58,7 @@
         <input class="form-check-input" type="checkbox"
                id="hasBankAccount"
                name="hasBankAccount"
-               [checked]="oneTimeTrans.bankAccountDto != null">
+               [checked]="transaction.bankAccountDto != null">
         <label class="form-check-label" for="hasBankAccount">
           Powiązać w kontem bankowym?
         </label>
@@ -72,12 +72,13 @@
               id="costBankAccount"
               name="costBankAccount"
               [compareWith]="compareAccounts"
-              [(ngModel)]="oneTimeTrans.bankAccountDto">
+              [(ngModel)]="transaction.bankAccountDto">
         <option *ngFor="let bank of (bankAccounts | async)"
                 [ngValue]="bank">
           {{bank.bankName + ' - ' + bank.accountNumber}}
         </option>
       </select>
     </div>
+    <button (ngSubmit)="onSubmit()" type="submit" class="btn btn-success">Dodaj</button>
   </form>
 </div>
