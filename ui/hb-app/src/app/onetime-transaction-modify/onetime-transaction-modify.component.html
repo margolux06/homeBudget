@@ -3,82 +3,73 @@
   <form (ngSubmit)="onSubmit()">
 
     <!--NAZWA WYDATKU/PRZYCHODU-->
-    <div class="form-group">
-      <label for="costName">Nazwa wydatku</label>
-      <input class="form-control"
+    <mat-form-field class="form-element-full-width">
+      <input matInput="text"
+             placeholder="Nazwa wydatku"
+             [errorStateMatcher]="matcher"
              id="costName"
              name="costName"
+             required
+             #costName="ngModel"
              [(ngModel)]="transaction.name"/>
-    </div>
+      <mat-error *ngIf="costName.invalid && !costName.hasError('required')">
+        Proszę podać nazwę
+      </mat-error>
+      <mat-error *ngIf="costName.hasError('required')">
+        Nazwa jest <strong>wymagana</strong>
+      </mat-error>
+    </mat-form-field>
 
     <div class="form-row">
       <!--TYP KOSZTU - PRZYCHODZĄCY  LUB WYCHODZĄCY-->
-      <div class="form-group col-md-4">
-        <label for="costDirection">Typ</label>
-        <select class="form-control"
-                id="costDirection"
-                name="costDirection"
-                [(ngModel)]="transaction.costDirection">
-          <option *ngFor="let direction of directions"
-                  [value]="direction"
-                  [selected]="direction == transaction.costDirection">{{direction}}
-          </option>
-        </select>
+      <div class="col-md-4">
+        <mat-form-field>
+          <mat-select id="costDirection" name="costDirection"
+                      placeholder="Typ"
+                      [(ngModel)]="transaction.costDirection">
+            <mat-option *ngFor="let direction of directions"
+                        [value]="direction">{{direction}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <!--WARTOŚĆ KOSZTU/PRZYCHODU-->
-      <div class="form-group col-md-4">
-        <label for="costValue">Wartość</label>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">$</div>
-          </div>
-          <input class="form-control"
-                 id="costValue"
-                 name="costValue"
-                 pattern="[0-9]*,[0-9]{2}"
-                 [(ngModel)]="transaction.value"/>
-        </div>
-      </div>
+      <mat-form-field class="col-md-4">
+        <input matInput id="costValue" name="costValue" class="form-text-right"
+               placeholder="Wartość"
+               pattern="[0-9]*.?[0-9]{0,2}"
+               [(ngModel)]="transaction.value"/>
+        <span matPrefix>$&nbsp;</span>
+      </mat-form-field>
 
       <!--  TERMIN PŁATNOŚCI-->
-      <div class="form-group col-md-4">
-        <label for="costPayDate">Termin pierwszej płatności</label>
-        <datetime
-          id="costPayDate"
-          name="costPayDate"
-          [timepicker]="false"
-          [datepicker]="datepickerOpts"
-          [(ngModel)]="transaction.payDate"></datetime>
-
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox"
-               id="hasBankAccount"
-               name="hasBankAccount"
-               [checked]="transaction.bankAccountDto != null">
-        <label class="form-check-label" for="hasBankAccount">
-          Powiązać w kontem bankowym?
-        </label>
-      </div>
+      <mat-form-field>
+        <input matInput id="costPayDate" name="costPayDate"
+               placeholder="Termin pierwszej płatności"
+               [matDatepicker]="costPayDatePicker"
+               [(ngModel)]="transaction.payDate">
+        <mat-datepicker-toggle matSuffix [for]="costPayDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #costPayDatePicker [startAt]="startDay"></mat-datepicker>
+      </mat-form-field>
     </div>
 
     <!--CZY POWIĄZAĆ KONTO BANKOWE ?-->
-    <div class="form-group">
-      <label for="costBankAccount">Konto bankowe</label>
-      <select class="form-control"
-              id="costBankAccount"
-              name="costBankAccount"
-              [compareWith]="compareAccounts"
-              [(ngModel)]="transaction.bankAccountDto">
-        <option *ngFor="let bank of (bankAccounts | async)" [ngValue]="bank">
+    <mat-checkbox id="hasBankAccount" name="hasBankAccount"
+                  [checked]="transaction.bankAccount != null">
+      Powiązać w kontem bankowym?
+    </mat-checkbox>
+
+    <mat-form-field class="form-element-full-width">
+      <mat-select id="costBankAccount" name="costBankAccount"
+                  placeholder="Konto bankowe"
+                  [compareWith]="compareAccounts"
+                  [(ngModel)]="transaction.bankAccountId">
+        <mat-option *ngFor="let bank of (bankAccounts | async)" [value]="bank.id">
           {{bank.bankName + ' - ' + bank.accountNumber}}
-        </option>
-      </select>
-    </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <button type="submit" class="btn btn-success">Zapisz</button>
   </form>
 </div>

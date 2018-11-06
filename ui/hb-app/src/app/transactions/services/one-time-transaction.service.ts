@@ -13,7 +13,8 @@ export class OneTimeTransactionService {
   }
 
   public findAllOneTimeTransactions(): Observable<OneTimeTransactionDto[]> {
-    return this.http.get<OneTimeTransactionDto[]>(OneTimeTransactionService.basicCostsUrl);
+    return this.http.get<OneTimeTransactionDto[]>(OneTimeTransactionService.basicCostsUrl)
+      .map(value => Helper.fromJsonsToObject(value, OneTimeTransactionDto));
   }
 
   findAccountById(id: string): Observable<OneTimeTransactionDto> {
@@ -21,7 +22,11 @@ export class OneTimeTransactionService {
       .map(value => Helper.fromJsonToObject(value, OneTimeTransactionDto));
   }
 
-  save(transaction: OneTimeTransactionDto) {
+  create(transaction: OneTimeTransactionDto) {
     return this.http.post(OneTimeTransactionService.basicCostsUrl, transaction);
+  }
+
+  update(transaction: OneTimeTransactionDto) {
+    return this.http.put(OneTimeTransactionService.basicCostsUrl, transaction);
   }
 }

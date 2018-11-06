@@ -1,7 +1,5 @@
 package com.urban.gosia.transaction.models.dto;
 
-import com.urban.gosia.bankAccount.BankAccount;
-import com.urban.gosia.bankAccount.BankAccountDto;
 import com.urban.gosia.transaction.models.OneTimeTransaction;
 import com.urban.gosia.transaction.models.Transaction;
 import lombok.AllArgsConstructor;
@@ -23,7 +21,7 @@ public class OneTimeTransactionDto {
     private BigDecimal value;
     private Transaction.CostDirection costDirection;
     private Date payDate;
-    private BankAccountDto bankAccountDto;
+    private int bankAccountId;
 
     public static OneTimeTransactionDto convert(OneTimeTransaction t) {
         return OneTimeTransactionDto.builder()
@@ -32,20 +30,7 @@ public class OneTimeTransactionDto {
                 .value(t.getValue())
                 .costDirection(t.getCostDirection())
                 .payDate(t.getPayDate())
-                .bankAccountDto(BankAccountDto.convertoToDto(t.getBankAccount()))
+                .bankAccountId(t.getBankAccount().getId())
                 .build();
-    }
-
-    public static OneTimeTransaction convert(OneTimeTransactionDto dto, BankAccount bankAccount) {
-        OneTimeTransaction transaction = new OneTimeTransaction();
-        transaction.setPayDate(dto.payDate);
-        transaction.setBankAccount(bankAccount);
-        transaction.setCostDirection(dto.costDirection);
-        transaction.setName(dto.name);
-        transaction.setValue(dto.value);
-        if (dto.getId() != null) {
-            transaction.setId(dto.id);
-        }
-        return transaction;
     }
 }

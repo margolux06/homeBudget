@@ -19,6 +19,29 @@ import {CyclicTransactionModifyComponent} from './cyclic-transaction-modify/cycl
 import {DateValueAccessorModule} from "angular-date-value-accessor";
 import {NKDatetimeModule} from 'ng2-datetime/ng2-datetime';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  MAT_DATE_FORMATS,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  NativeDateModule
+} from '@angular/material';
+
+export const MY_NATIVE_DATE_FORMATS= {
+  parse: {
+    dateInput: 'DD MMM YYYY',
+  },
+  display: {
+    dateInput: 'DD MMM YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,10 +60,20 @@ import {NKDatetimeModule} from 'ng2-datetime/ng2-datetime';
     FormsModule,
     ReactiveFormsModule,
     NKDatetimeModule,
-    DateValueAccessorModule
+    DateValueAccessorModule,
+    NativeDateModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatDatepickerModule
   ],
 
-  providers: [BankAccountService, AccountBalanceService, OneTimeTransactionService, CyclicTransactionService],
+  providers: [
+    BankAccountService, AccountBalanceService, OneTimeTransactionService, CyclicTransactionService,
+    {provide: MAT_DATE_FORMATS, useValue: MY_NATIVE_DATE_FORMATS}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

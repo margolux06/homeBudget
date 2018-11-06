@@ -2,6 +2,7 @@ import {BankAccountDto} from "../../component-bank-account/models/bank-account-d
 import {CostDirection} from "./CostDirection";
 
 export class OneTimeTransactionDto {
+  private _bankAccount: BankAccountDto;
 
   constructor();
   constructor(
@@ -10,8 +11,16 @@ export class OneTimeTransactionDto {
     public value?: number,
     public costDirection?: CostDirection,
     public payDate?: Date,
-    public bankAccountDto?: BankAccountDto
+    public bankAccountId?: number
   ) {
+  }
+
+  get bankAccount(): BankAccountDto {
+    return this._bankAccount;
+  }
+
+  set bankAccount(value: BankAccountDto) {
+    this._bankAccount = value;
   }
 
   get(){

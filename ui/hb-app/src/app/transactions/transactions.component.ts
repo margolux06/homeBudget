@@ -4,6 +4,8 @@ import {CostDirection} from "./models/CostDirection";
 import {OneTimeTransactionDto} from "./models/OneTimeTransactionDto";
 import {CyclicTransactionService} from "./services/cyclic-transaction.service";
 import {CyclicTransactionDto} from "./models/CyclicTransactionDto";
+import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
+import {BankAccountDto} from "../component-bank-account/models/bank-account-dto";
 
 @Component({
   selector: 'app-transactions',
@@ -13,25 +15,40 @@ import {CyclicTransactionDto} from "./models/CyclicTransactionDto";
 export class Transactions implements OnInit {
   oneTimeTransactionDtos: OneTimeTransactionDto[];
   cyclicTransactionDtos: CyclicTransactionDto[];
+  private bankAccounts: BankAccountDto[];
 
   constructor(private oneTimeTransactionService: OneTimeTransactionService,
-              private cyclicTransactionService: CyclicTransactionService) {
+              private cyclicTransactionService: CyclicTransactionService,
+              private bankAccountService: BankAccountService) {
   }
 
   ngOnInit() {
-    this.loadOneTimeTransactions();
-    this.loadCyclicTransactions();
+    this.loadBankAccounts();
+  }
+
+  private loadBankAccounts() {
+    this.bankAccountService.getAccounts().subscribe(value => {
+      this.bankAccounts = value;
+      this.loadOneTimeTransactions();
+      this.loadCyclicTransactions();
+    })
   }
 
   private loadOneTimeTransactions() {
     this.oneTimeTransactionService.findAllOneTimeTransactions().subscribe(oneTimeTransactions => {
       this.oneTimeTransactionDtos = oneTimeTransactions;
-      console.log(this.oneTimeTransactionDtos);
+      this.oneTimeTransactionDtos.map(onetimeTransaction => {
+        console.log(onetimeTransaction);
+        return onetimeTransaction.bankAccount =
+          this.bankAccounts.find(value1 => {
+            return value1.id == onetimeTransaction.bankAccountId;
+          });
+      })
     })
   }
 
   private loadCyclicTransactions() {
-    this.cyclicTransactionService.findAllCyclicTransactions().subscribe(cyclicTransactions =>{
+    this.cyclicTransactionService.findAllCyclicTransactions().subscribe(cyclicTransactions => {
       this.cyclicTransactionDtos = cyclicTransactions;
     })
   }

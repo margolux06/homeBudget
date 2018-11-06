@@ -5,28 +5,33 @@ import {BankAccountDto} from "../component-bank-account/models/bank-account-dto"
 import {CostDirection} from "../transactions/models/CostDirection";
 import {ActivatedRoute} from "@angular/router";
 import {OneTimeTransactionService} from "../transactions/services/one-time-transaction.service";
-import {Subject, Subscription} from "rxjs";
+import {Observable, Subject, Subscription} from "rxjs";
+import {FormControl, FormGroupDirective, NgForm} from "@angular/forms";
+import {ErrorStateMatcher} from "@angular/material";
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
 
 @Component({
   selector: 'onetime-transaction-modify',
   templateUrl: './onetime-transaction-modify.component.html',
-  styleUrls: ['./onetime-transaction-modify.component.css']
+  styleUrls: ['./onetime-transaction-modify.component.css'],
 })
 export class OnetimeTransactionModifyComponent implements OnInit {
   private transactionSubscription: Subscription;
   private accoutSubscription: Subscription;
 
-  directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
   bankAccounts: Subject<BankAccountDto[]> = new Subject();
   transaction: OneTimeTransactionDto = new OneTimeTransactionDto();
 
-  datepickerOpts = {
-    autoclose: true,
-    todayBtn: 'linked',
-    todayHighlight: true,
-    assumeNearbyYear: true,
-    format: 'dd-mm-yyyy'
-  };
+  directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
+  matcher = new MyErrorStateMatcher();
+  startDay:Date = new Date();
 
   constructor(private bankAccountService: BankAccountService,
               private oneTimeTransactionService: OneTimeTransactionService,
@@ -37,23 +42,29 @@ export class OnetimeTransactionModifyComponent implements OnInit {
     this.fetchAccounts();
   }
 
-  compareAccounts(a1: BankAccountDto, a2: BankAccountDto) {
+  compareAccounts(a1: number, a2: number) {
     if (a1 == null) {
       return a2;
     }
     if (a2 == null) {
       return a1;
     }
-    return a1.id == a2.id;
+    return a1 == a2;
   }
 
   onSubmit() {
-    this.oneTimeTransactionService.save(this.transaction).subscribe(
+    console.log(this.transaction);
+    let observable: Observable<Object> =
+      this.transaction.id == null ?
+        this.oneTimeTransactionService.create(this.transaction)
+        : this.oneTimeTransactionService.update(this.transaction);
+
+    observable.subscribe(
       value => {
         window.history.back();
       }, error1 => {
         console.log(error1);
-      })
+      });
   }
 
   private fetchAccounts() {

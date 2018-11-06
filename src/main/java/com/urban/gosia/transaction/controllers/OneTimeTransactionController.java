@@ -1,5 +1,6 @@
 package com.urban.gosia.transaction.controllers;
 
+import com.urban.gosia.transaction.models.dto.CreateOneTimeTransactionDto;
 import com.urban.gosia.transaction.models.dto.OneTimeTransactionDto;
 import com.urban.gosia.transaction.services.OneTimeTransactionService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,12 @@ public class OneTimeTransactionController {
     }
 
     @PostMapping
-    public OneTimeTransactionDto save(@RequestBody OneTimeTransactionDto oneTimeTransactionDto){
-        return oneTimeTransactionService.save(oneTimeTransactionDto);
+    public OneTimeTransactionDto save(@RequestBody CreateOneTimeTransactionDto dto){
+        return oneTimeTransactionService.save(dto);
+    }
+
+    @PutMapping
+    public OneTimeTransactionDto update(@RequestBody OneTimeTransactionDto dto){
+        return oneTimeTransactionService.update(dto);
     }
 }

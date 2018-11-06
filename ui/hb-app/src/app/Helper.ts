@@ -9,4 +9,8 @@ export class Helper{
     const object = new type();
     return jQuery.extend(object, json as T);
   }
+
+  public static fromJsonsToObject<T>(jsons: any[], type: { new(): T; }): T[] {
+    return jsons.map(value => this.fromJsonToObject(value, type));
+  }
 }
