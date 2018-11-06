@@ -56,6 +56,6 @@ export class CyclicTransactionModifyComponent implements OnInit {
   }
 
   compareAccounts(c1: CyclicTransactionDto, c2: CyclicTransactionDto) {
-    return c1.bankAccountDto.id == c2.bankAccountDto.id;
+    return c1.bankAccountId == c2.bankAccountId;
   }
 }

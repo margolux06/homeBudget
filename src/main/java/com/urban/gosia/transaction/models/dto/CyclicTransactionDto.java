@@ -1,6 +1,5 @@
 package com.urban.gosia.transaction.models.dto;
 
-import com.urban.gosia.bankAccount.BankAccountDto;
 import com.urban.gosia.transaction.models.CyclicTransaction;
 import com.urban.gosia.transaction.models.Transaction;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,7 @@ public class CyclicTransactionDto {
     private Date lastPayDate;
     private Transaction.CostDirection costDirection;
     private CyclicTransaction.CyclicCostPeriod period;
-    private BankAccountDto bankAccountDto;
+    private int bankAccountId;
 
     public static CyclicTransactionDto convertToDto(CyclicTransaction transaction) {
         return CyclicTransactionDto.builder()
@@ -35,7 +34,7 @@ public class CyclicTransactionDto {
                 .lastPayDate(transaction.getLastPayDate())
                 .costDirection(transaction.getCostDirection())
                 .period(transaction.getPeriod())
-                .bankAccountDto(BankAccountDto.convertoToDto(transaction.getBankAccount()))
+                .bankAccountId(transaction.getBankAccount().getId())
                 .build();
     }
 }

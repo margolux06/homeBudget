@@ -37,20 +37,25 @@ export class Transactions implements OnInit {
   private loadOneTimeTransactions() {
     this.oneTimeTransactionService.findAllOneTimeTransactions().subscribe(oneTimeTransactions => {
       this.oneTimeTransactionDtos = oneTimeTransactions;
-      this.oneTimeTransactionDtos.map(onetimeTransaction => {
-        console.log(onetimeTransaction);
-        return onetimeTransaction.bankAccount =
-          this.bankAccounts.find(value1 => {
-            return value1.id == onetimeTransaction.bankAccountId;
-          });
-      })
+      this.oneTimeTransactionDtos.map(this.bankAutocomplete())
     })
   }
 
   private loadCyclicTransactions() {
     this.cyclicTransactionService.findAllCyclicTransactions().subscribe(cyclicTransactions => {
       this.cyclicTransactionDtos = cyclicTransactions;
+      console.log(this.cyclicTransactionDtos);
+      this.cyclicTransactionDtos.map(this.bankAutocomplete());
     })
+  }
+
+  private bankAutocomplete() {
+    return transaction => {
+      return transaction.bankAccount =
+        this.bankAccounts.find(value1 => {
+          return value1.id == transaction.bankAccountId;
+        });
+    }
   }
 
   isIncoming(cost: OneTimeTransactionDto) {

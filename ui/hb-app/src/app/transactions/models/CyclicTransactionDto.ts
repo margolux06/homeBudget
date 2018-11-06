@@ -3,6 +3,7 @@ import {CostDirection} from "./CostDirection";
 import {CyclicCostPeriod} from "./CyclicCostPeriod";
 
 export class CyclicTransactionDto {
+  private _bankAccount: BankAccountDto;
 
   constructor();
   constructor(
@@ -13,8 +14,17 @@ export class CyclicTransactionDto {
     public firstPayDate?: Date,
     public lastPayDate?: Date,
     public period?: CyclicCostPeriod,
-    public bankAccountDto?: BankAccountDto
+    public bankAccountId?: number
   ) {
+  }
+
+
+  get bankAccount(): BankAccountDto {
+    return this._bankAccount;
+  }
+
+  set bankAccount(value: BankAccountDto) {
+    this._bankAccount = value;
   }
 
   get(){

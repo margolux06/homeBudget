@@ -65,7 +65,7 @@ export class OnetimeTransactionModifyComponent implements OnInit {
       value => {
         this.location.back();
       }, error1 => {
-        console.log(error1);
+        console.log("onSubmit error : " + error1);
       });
   }
 
@@ -74,6 +74,8 @@ export class OnetimeTransactionModifyComponent implements OnInit {
       .subscribe(accounts => {
         this.loadOneTimeTransaction();
         this.bankAccounts.next(accounts);
+      }, error1 => {
+        console.log("fetchAccounts error" + error1.valueOf());
       })
   }
 

@@ -12,7 +12,8 @@ export class CyclicTransactionService {
   }
 
   findAllCyclicTransactions() {
-    return this.http.get<CyclicTransactionDto[]>(CyclicTransactionService.basicCyclicTransactionUrl);
+    return this.http.get<CyclicTransactionDto[]>(CyclicTransactionService.basicCyclicTransactionUrl)
+      .map(value => Helper.fromJsonsToObject(value, CyclicTransactionDto));
   }
 
   findAccountById(cyclicId: string) {
