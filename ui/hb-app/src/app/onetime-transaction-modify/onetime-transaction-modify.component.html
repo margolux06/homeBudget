@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container container-header">
 
   <form (ngSubmit)="onSubmit()">
 
@@ -63,7 +63,7 @@
     <mat-form-field class="form-element-full-width">
       <mat-select id="costBankAccount" name="costBankAccount"
                   placeholder="Konto bankowe"
-                  [compareWith]="compareAccounts"
+                  [compareWith]="compareAccountFn"
                   [(ngModel)]="transaction.bankAccountId">
         <mat-option *ngFor="let bank of (bankAccounts | async)" [value]="bank.id">
           {{bank.bankName + ' - ' + bank.accountNumber}}

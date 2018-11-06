@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
 import {CyclicTransactionService} from "../transactions/services/cyclic-transaction.service";
 import {CyclicTransactionDto} from "../transactions/models/CyclicTransactionDto";
 import {ActivatedRoute} from "@angular/router";
@@ -6,6 +7,15 @@ import {BankAccountService} from "../component-bank-account/services/bank-accoun
 import {BankAccountDto} from "../component-bank-account/models/bank-account-dto";
 import {CostDirection} from "../transactions/models/CostDirection";
 import {Subject, Subscription} from "rxjs";
+import {ErrorStateMatcher} from "@angular/material";
+import {FormControl, FormGroupDirective, NgForm} from "@angular/forms";
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'cyclic-transaction-modify',
@@ -18,15 +28,17 @@ export class CyclicTransactionModifyComponent implements OnInit {
 
   directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
   bankAccounts: Subject<BankAccountDto[]> = new Subject();
-  transaction: CyclicTransactionDto;
+  transaction: CyclicTransactionDto = new CyclicTransactionDto();
+  matcher: MyErrorStateMatcher;
 
   constructor(private cyclicTransactionService: CyclicTransactionService,
               private bankAccountService: BankAccountService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private location: Location) {
   }
 
   ngOnInit() {
-    this.loadCyclicTransaction();
+    this.fetchAccounts();
   }
 
   private loadCyclicTransaction() {
@@ -36,26 +48,28 @@ export class CyclicTransactionModifyComponent implements OnInit {
       this.transactionSubscription = this.cyclicTransactionService.findAccountById(id)
         .subscribe(cyclicTransaction => {
           this.transaction = cyclicTransaction.get();
-          console.log(JSON.stringify(this.transaction));
+          console.log(this.transaction);
         }, error1 => {
           //  todo:
         })
     }
   }
+
   private fetchAccounts() {
     this.accoutSubscription = this.bankAccountService.getAccounts()
       .subscribe(accounts => {
-          console.log(accounts);
-          this.bankAccounts.next(accounts);
-        }
-      )
+        this.bankAccounts.next(accounts);
+        this.loadCyclicTransaction();
+      }, error1 => {
+        console.log("fetchAccounts error" + error1);
+      })
   }
 
   onSubmit() {
-
+    this.location.back();
   }
 
-  compareAccounts(c1: CyclicTransactionDto, c2: CyclicTransactionDto) {
-    return c1.bankAccountId == c2.bankAccountId;
+  compareAccountFn(a1: BankAccountDto, a2: BankAccountDto) {
+    return BankAccountDto.compareAccountById(a1, a2);
   }
 }

@@ -44,14 +44,8 @@ export class OnetimeTransactionModifyComponent implements OnInit {
     this.fetchAccounts();
   }
 
-  compareAccounts(a1: number, a2: number) {
-    if (a1 == null) {
-      return a2;
-    }
-    if (a2 == null) {
-      return a1;
-    }
-    return a1 == a2;
+  compareAccountFn(a1: BankAccountDto, a2: BankAccountDto) {
+    return BankAccountDto.compareAccountById(a1, a2);
   }
 
   onSubmit() {
@@ -72,10 +66,10 @@ export class OnetimeTransactionModifyComponent implements OnInit {
   private fetchAccounts() {
     this.accoutSubscription = this.bankAccountService.getAccounts()
       .subscribe(accounts => {
-        this.loadOneTimeTransaction();
         this.bankAccounts.next(accounts);
+        this.loadOneTimeTransaction();
       }, error1 => {
-        console.log("fetchAccounts error" + error1.valueOf());
+        console.log("fetchAccounts error" + error1);
       })
   }
 

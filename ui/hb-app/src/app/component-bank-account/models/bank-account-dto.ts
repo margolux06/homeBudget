@@ -9,6 +9,16 @@ export class BankAccountDto {
     public balanceUpdate: number,
     public isChanged: boolean = false
   ){}
+
+  public static compareAccountById(a1: BankAccountDto, a2: BankAccountDto){
+    if (a1 == null) {
+      return a2;
+    }
+    if (a2 == null) {
+      return a1;
+    }
+    return a1 == a2;
+  }
 }
 
 export enum BankAccountType {

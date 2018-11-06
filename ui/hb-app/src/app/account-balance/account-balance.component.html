@@ -1,32 +1,35 @@
-<form #accountBalanceForm="ngForm">
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">Nazwa konta i numer</th>
-      <th scope="col">Ostatnia aktualizacja</th>
-      <th scope="col">Stan konta</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let bankAccount of bankAccounts">
-      <td>{{bankAccount.bankName}}<br/>{{bankAccount.accountNumber}}</td>
-      <td>{{bankAccount.balanceUpdate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
-      <td>
-        <input class="form-control" name="{{bankAccount.id}}"
-               [(ngModel)]="bankAccount.currentBalance"
-               (change)="hasChanges = true; bankAccount.isChanged = true"
-               [value]="bankAccount.currentBalance"
-               pattern="^[0-9]+(\.[0-9]{2})?$"
-               #bankName="ngModel"/>
-        <div *ngIf="!bankName.valid && !bankName.pristine" class="alert alert-danger">
-          Format kwoty jest niepoprawny. (0-9).(0-9)
-        </div>
-      </td>
-    </tbody>
-  </table>
-</form>
+<div class="container container-header">
+  <form #accountBalanceForm="ngForm">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Nazwa konta i numer</th>
+        <th scope="col">Ostatnia aktualizacja</th>
+        <th scope="col">Stan konta</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bankAccount of bankAccounts">
+        <td>{{bankAccount.bankName}}<br/>{{bankAccount.accountNumber}}</td>
+        <td>{{bankAccount.balanceUpdate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+        <td>
+          <input class="form-control" name="{{bankAccount.id}}"
+                 [(ngModel)]="bankAccount.currentBalance"
+                 (change)="hasChanges = true; bankAccount.isChanged = true"
+                 [value]="bankAccount.currentBalance"
+                 pattern="^[0-9]+(\.[0-9]{2})?$"
+                 #bankName="ngModel"/>
+          <div *ngIf="!bankName.valid && !bankName.pristine" class="alert alert-danger">
+            Format kwoty jest niepoprawny. (0-9).(0-9)
+          </div>
+        </td>
+      </tbody>
+    </table>
+  </form>
 
-<button type="button" class="btn btn-info"
-        (click)="onSaveClick()"
-        [hidden]="!hasChanges">Zapisz zmiany
-</button>
+  <button type="button" class="btn btn-info"
+          (click)="onSaveClick()"
+          [hidden]="!hasChanges">Zapisz zmiany
+  </button>
+
+</div>
