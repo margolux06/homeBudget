@@ -13,9 +13,9 @@ const routes: Routes = [
   {path: 'accountCreate', component: BankAccountFormComponent},
   {path: 'accountEdit/:id', component: BankAccountFormComponent},
   {path: 'transactions', component: Transactions},
-  {path: 'costCreate', component: OnetimeTransactionModifyComponent},
   {path: 'onetimeModify/:id', component: OnetimeTransactionModifyComponent},
-  {path: 'cyclicModify/:id', component: CyclicTransactionModifyComponent}
+  {path: 'cyclicModify/:id', component: CyclicTransactionModifyComponent},
+  {path: 'costCreate', component: OnetimeTransactionModifyComponent}
 ];
 
 @NgModule({

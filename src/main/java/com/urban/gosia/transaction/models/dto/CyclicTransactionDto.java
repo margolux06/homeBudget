@@ -28,6 +28,7 @@ public class CyclicTransactionDto {
 
     public static CyclicTransactionDto convertToDto(CyclicTransaction transaction) {
         return CyclicTransactionDto.builder()
+                .id(transaction.getId())
                 .name(transaction.getName())
                 .value(transaction.getValue())
                 .firstPayDate(transaction.getFirstPayDate())

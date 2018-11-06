@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
 import {BankAccountDto, BankAccountType} from "../component-bank-account/models/bank-account-dto";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
@@ -17,7 +18,8 @@ export class BankAccountFormComponent implements OnInit {
 
   constructor(
     private accountService: BankAccountService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private location: Location) {
     this.accountTypeKeys = Helper.toArray(BankAccountType);
   }
 
@@ -29,7 +31,7 @@ export class BankAccountFormComponent implements OnInit {
 
   onSubmit() {
     this.accountService.createAccount(this.accountModel).subscribe(value => {
-      window.history.back();
+      this.location.back();
     })
   }
 
@@ -39,7 +41,6 @@ export class BankAccountFormComponent implements OnInit {
       console.log(id);
       this.accountService.findAccountById(id).subscribe(bankAccountFormModel => {
         this.accountModel = bankAccountFormModel;
-        console.log(JSON.stringify(this.accountModel));
       }, error1 => {
       });
     }

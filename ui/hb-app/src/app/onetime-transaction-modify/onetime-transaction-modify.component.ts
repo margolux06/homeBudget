@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
 import {OneTimeTransactionDto} from "../transactions/models/OneTimeTransactionDto";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
 import {BankAccountDto} from "../component-bank-account/models/bank-account-dto";
@@ -35,7 +36,8 @@ export class OnetimeTransactionModifyComponent implements OnInit {
 
   constructor(private bankAccountService: BankAccountService,
               private oneTimeTransactionService: OneTimeTransactionService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -61,7 +63,7 @@ export class OnetimeTransactionModifyComponent implements OnInit {
 
     observable.subscribe(
       value => {
-        window.history.back();
+        this.location.back();
       }, error1 => {
         console.log(error1);
       });
@@ -82,7 +84,6 @@ export class OnetimeTransactionModifyComponent implements OnInit {
       this.transactionSubscription = this.oneTimeTransactionService.findAccountById(id)
         .subscribe(oneTimeTransaction => {
           this.transaction = oneTimeTransaction.get();
-          console.log(this.transaction);
         }, error1 => {
           //  todo:
           console.log(error1);
