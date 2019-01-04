@@ -1,5 +1,6 @@
 package com.urban.gosia.transaction.controllers;
 
+import com.urban.gosia.bankAccount.BankAccountNotFoundException;
 import com.urban.gosia.transaction.models.dto.CreateOneTimeTransactionDto;
 import com.urban.gosia.transaction.models.dto.OneTimeTransactionDto;
 import com.urban.gosia.transaction.services.OneTimeTransactionService;
@@ -26,12 +27,12 @@ public class OneTimeTransactionController {
     }
 
     @PostMapping
-    public OneTimeTransactionDto save(@RequestBody CreateOneTimeTransactionDto dto){
+    public OneTimeTransactionDto save(@RequestBody CreateOneTimeTransactionDto dto) throws BankAccountNotFoundException {
         return oneTimeTransactionService.save(dto);
     }
 
     @PutMapping
-    public OneTimeTransactionDto update(@RequestBody OneTimeTransactionDto dto){
+    public OneTimeTransactionDto update(@RequestBody OneTimeTransactionDto dto) throws BankAccountNotFoundException {
         return oneTimeTransactionService.update(dto);
     }
 }

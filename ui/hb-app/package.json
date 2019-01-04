@@ -14,12 +14,12 @@
   "dependencies": {
     "@angular/animations": "^5.2.0",
     "@angular/cdk": "^5.2.0",
-    "@angular/material": "^5.2.0",
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
     "@angular/core": "^5.0.0",
     "@angular/forms": "^5.0.0",
     "@angular/http": "^5.0.0",
+    "@angular/material": "^5.2.0",
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
@@ -34,17 +34,19 @@
     "ng2-datetime": "^1.4.0",
     "ng2-datetime-picker": "^0.15.1",
     "rxjs": "^5.5.2",
+    "tslib": "^1.9.0",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "^1.6.8",
-    "@angular/compiler-cli": "^5.0.0",
-    "@angular/language-service": "^5.0.0",
+    "@angular-devkit/build-angular": "~0.11.0",
+    "@angular/cli": "^7.1.4",
+    "@angular/compiler-cli": "^7.1.4",
+    "@angular/language-service": "^7.1.4",
     "@types/hammerjs": "^2.0.36",
-    "@types/jasmine": "~2.5.53",
-    "@types/jasminewd2": "~2.0.2",
-    "@types/jquery": "^3.3.22",
-    "@types/node": "~6.0.60",
+    "@types/jasmine": "~3.3.5",
+    "@types/jasminewd2": "~2.0.6",
+    "@types/jquery": "^3.3.29",
+    "@types/node": "~10.12.18",
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
@@ -57,6 +59,6 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.4.2"
+    "typescript": "3.1.6"
   }
 }

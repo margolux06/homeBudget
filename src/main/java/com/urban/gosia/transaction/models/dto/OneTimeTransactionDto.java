@@ -21,7 +21,7 @@ public class OneTimeTransactionDto {
     private BigDecimal value;
     private Transaction.CostDirection costDirection;
     private Date payDate;
-    private int bankAccountId;
+    private Integer bankAccountId;
 
     public static OneTimeTransactionDto convert(OneTimeTransaction t) {
         return OneTimeTransactionDto.builder()
@@ -30,7 +30,7 @@ public class OneTimeTransactionDto {
                 .value(t.getValue())
                 .costDirection(t.getCostDirection())
                 .payDate(t.getPayDate())
-                .bankAccountId(t.getBankAccount().getId())
+                .bankAccountId(t.getBankAccount() != null ? t.getBankAccount().getId() : null)
                 .build();
     }
 }

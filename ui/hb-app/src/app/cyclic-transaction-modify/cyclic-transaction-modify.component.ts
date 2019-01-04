@@ -9,6 +9,7 @@ import {CostDirection} from "../transactions/models/CostDirection";
 import {Subject, Subscription} from "rxjs";
 import {ErrorStateMatcher} from "@angular/material";
 import {FormControl, FormGroupDirective, NgForm} from "@angular/forms";
+import {CyclicCostPeriod} from "../transactions/models/CyclicCostPeriod";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -27,6 +28,8 @@ export class CyclicTransactionModifyComponent implements OnInit {
   private accoutSubscription: Subscription;
 
   directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
+  periods: CyclicCostPeriod[] = [CyclicCostPeriod.PER_WEEK, CyclicCostPeriod.PER_MONTH, CyclicCostPeriod.PER_THREE_MONTHS,
+    CyclicCostPeriod.PER_YEAR];
   bankAccounts: Subject<BankAccountDto[]> = new Subject();
   transaction: CyclicTransactionDto = new CyclicTransactionDto();
   matcher: MyErrorStateMatcher;
@@ -39,6 +42,7 @@ export class CyclicTransactionModifyComponent implements OnInit {
 
   ngOnInit() {
     this.fetchAccounts();
+
   }
 
   private loadCyclicTransaction() {
@@ -66,7 +70,13 @@ export class CyclicTransactionModifyComponent implements OnInit {
   }
 
   onSubmit() {
-    this.location.back();
+    console.log(this.transaction)
+    this.cyclicTransactionService.save(this.transaction).subscribe(
+      value => {
+        this.location.back();
+      },
+      error1 => {
+      })
   }
 
   compareAccountFn(a1: BankAccountDto, a2: BankAccountDto) {

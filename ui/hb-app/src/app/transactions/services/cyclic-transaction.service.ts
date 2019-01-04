@@ -20,4 +20,12 @@ export class CyclicTransactionService {
     return this.http.get<CyclicTransactionDto>(CyclicTransactionService.basicCyclicTransactionUrl + "/" + cyclicId)
       .map(value => Helper.fromJsonToObject(value, CyclicTransactionDto));
   }
+
+  save(cyclicTransaction: CyclicTransactionDto) {
+    return this.http.post<CyclicTransactionDto>(CyclicTransactionService.basicCyclicTransactionUrl, cyclicTransaction);
+  }
+
+  update(cyclicTransaction: CyclicTransactionDto) {
+    return this.http.put<CyclicTransactionDto>(CyclicTransactionService.basicCyclicTransactionUrl, cyclicTransaction);
+  }
 }

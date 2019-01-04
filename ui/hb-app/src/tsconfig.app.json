@@ -6,11 +6,14 @@
     "module": "es2015",
     "types": [
       "jquery"
-    ]
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "**/*.ts",
-    "../node_modules/ng2-datetime/ng2-datetime.ts"
+    "../node_modules/ng2-datetime/ng2-datetime.ts",
+    "../node_modules/ng2-datetime/src/ng2-datetime/ng2-datetime.ts",
+    "../node_modules/ng2-datetime/src/ng2-datetime/ng2-datetime.module.ts"
   ],
   "exclude": [
     "test.ts",

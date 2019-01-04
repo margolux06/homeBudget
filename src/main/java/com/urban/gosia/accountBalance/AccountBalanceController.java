@@ -1,5 +1,6 @@
 package com.urban.gosia.accountBalance;
 
+import com.urban.gosia.bankAccount.BankAccountNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ public class AccountBalanceController {
     private final AccountBalanceService balanceService;
 
     @GetMapping("/accountBalance/{id}")
-    public AccountBalance getTopAccountBalance(@PathVariable("id") int bankAccountID) {
+    public AccountBalance getTopAccountBalance(@PathVariable("id") int bankAccountID) throws BankAccountNotFoundException {
         return balanceService.getAccountBalance(bankAccountID);
     }
 

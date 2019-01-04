@@ -15,7 +15,7 @@ public class AccountBalanceService {
     private final AccountBalanceRepository balanceRepository;
     private final BankAccountService bankAccountService;
 
-    AccountBalance getAccountBalance(int bankAccountID) {
+    AccountBalance getAccountBalance(int bankAccountID) throws BankAccountNotFoundException {
         BankAccount bankAccount = bankAccountService.findById(bankAccountID)
                 .orElseThrow(() -> new BankAccountNotFoundException(bankAccountID));
         return balanceRepository.findCurrentAccountBalance(bankAccount.getId())
@@ -25,25 +25,32 @@ public class AccountBalanceService {
     void createAccountBalance(List<AccountBalanceCreateDto> createDTO) {
         createDTO.forEach(accountBalanceCreateDto -> {
             int bankAccountId = accountBalanceCreateDto.getBankAccountId();
-            BankAccount bankAccount = bankAccountService.findById(bankAccountId)
-                    .orElseThrow(() -> new BankAccountNotFoundException(bankAccountId));
 
-            AccountBalance accountBalance = AccountBalance.builder()
-                    .value(accountBalanceCreateDto.getBalanceValue())
-                    .bankAccount(bankAccount)
-                    .build();
-            balanceRepository.save(accountBalance);
+            BankAccount bankAccount = null;
+            try {
+                bankAccount = bankAccountService.findById(bankAccountId)
+                        .orElseThrow(() -> new BankAccountNotFoundException(bankAccountId));
 
-            bankAccount.setCurrentBalance(accountBalanceCreateDto.getBalanceValue());
-            bankAccount.setBalanceUpdate(accountBalance.getUpdateDate());
+                AccountBalance accountBalance = AccountBalance.builder()
+                        .value(accountBalanceCreateDto.getBalanceValue())
+                        .bankAccount(bankAccount)
+                        .build();
+                balanceRepository.save(accountBalance);
 
-            bankAccountService.save(bankAccount);
+                bankAccount.setCurrentBalance(accountBalanceCreateDto.getBalanceValue());
+                bankAccount.setBalanceUpdate(accountBalance.getUpdateDate());
+
+                bankAccountService.save(bankAccount);
+            } catch (BankAccountNotFoundException e) {
+                e.printStackTrace();
+            }
         });
     }
 
     List<AccountBalance> getAccountBalances() {
         return bankAccountService.getAccounts().stream()
-                .map(bankAccount -> getAccountBalance(bankAccount.getId()))
+                .map(bankAccount -> balanceRepository.findCurrentAccountBalance(bankAccount.getId())
+                        .orElse(AccountBalance.empty(bankAccount)))
                 .collect(Collectors.toList());
     }
 }

@@ -17,7 +17,7 @@ public class BankAccountController {
     }
 
     @GetMapping("/account/{id}")
-    public BankAccount findBankAccountById(@PathVariable("id") int id) {
+    public BankAccount findBankAccountById(@PathVariable("id") int id) throws BankAccountNotFoundException {
         return bankAccountService.findById(id)
                 .orElseThrow(() -> new BankAccountNotFoundException(id));
     }

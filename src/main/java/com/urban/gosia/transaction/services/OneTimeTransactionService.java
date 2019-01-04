@@ -3,7 +3,7 @@ package com.urban.gosia.transaction.services;
 import com.urban.gosia.bankAccount.BankAccount;
 import com.urban.gosia.bankAccount.BankAccountNotFoundException;
 import com.urban.gosia.bankAccount.BankAccountService;
-import com.urban.gosia.transaction.TransactionNotFoundException;
+import com.urban.gosia.exceptions.TransactionNotFoundException;
 import com.urban.gosia.transaction.models.OneTimeTransaction;
 import com.urban.gosia.transaction.models.dto.CreateOneTimeTransactionDto;
 import com.urban.gosia.transaction.models.dto.OneTimeTransactionDto;
@@ -28,32 +28,38 @@ public class OneTimeTransactionService {
                 .collect(Collectors.toList());
     }
 
-    public OneTimeTransactionDto findById(UUID id){
+    public OneTimeTransactionDto findById(UUID id) {
         return OneTimeTransactionDto.convert(getTransaction(id));
     }
 
-    public OneTimeTransactionDto save(CreateOneTimeTransactionDto dto) {
-        BankAccount bankAccount = getBankAccount(dto.getBankAccountId());
+    public OneTimeTransactionDto save(CreateOneTimeTransactionDto dto) throws BankAccountNotFoundException {
+        BankAccount bankAccount = null;
+        if (dto.getBankAccountId() != null) {
+            bankAccount = getBankAccount(dto.getBankAccountId());
+        }
         OneTimeTransaction oneTimeTransaction = oneTimeTransactionRepository.save(
                 CreateOneTimeTransactionDto.convert(dto, bankAccount));
         return OneTimeTransactionDto.convert(oneTimeTransaction);
     }
 
-    public OneTimeTransactionDto update(OneTimeTransactionDto dto) {
-        BankAccount bankAccount = getBankAccount(dto.getBankAccountId());
-
+    public OneTimeTransactionDto update(OneTimeTransactionDto dto) throws BankAccountNotFoundException {
         OneTimeTransaction oneTimeTransaction = getTransaction(dto.getId());
+
+        if (dto.getBankAccountId() != null) {
+            BankAccount bankAccount = getBankAccount(dto.getBankAccountId());
+            oneTimeTransaction.setBankAccount(bankAccount);
+        }
+
         oneTimeTransaction.setValue(dto.getValue());
         oneTimeTransaction.setName(dto.getName());
         oneTimeTransaction.setCostDirection(dto.getCostDirection());
-        oneTimeTransaction.setBankAccount(bankAccount);
         oneTimeTransaction.setPayDate(dto.getPayDate());
 
         OneTimeTransaction transaction = oneTimeTransactionRepository.save(oneTimeTransaction);
         return OneTimeTransactionDto.convert(transaction);
     }
 
-    private BankAccount getBankAccount(int id) {
+    private BankAccount getBankAccount(int id) throws BankAccountNotFoundException {
         return bankAccountService.findById(id)
                 .orElseThrow(() -> new BankAccountNotFoundException(id));
     }

@@ -22,7 +22,7 @@
 
     <div class="form-row">
       <!--TYP KOSZTU - PRZYCHODZĄCY  LUB WYCHODZĄCY-->
-      <mat-form-field class="col-md-6">
+      <mat-form-field class="col-md-4">
         <mat-select id="costDirection" name="costDirection"
                     placeholder="Typ"
                     [(ngModel)]="transaction.costDirection">
@@ -32,8 +32,19 @@
         </mat-select>
       </mat-form-field>
 
+      <!--CYKLICZNOŚĆ-->
+      <mat-form-field class="col-md-4">
+        <mat-select id="period" name="period"
+                    placeholder="Cykliczność"
+                    [(ngModel)]="transaction.period">
+          <mat-option *ngFor="let period of periods"
+                      [value]="period">{{period}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!--WARTOŚĆ KOSZTU/PRZYCHODU-->
-      <mat-form-field class="col-md-6">
+      <mat-form-field class="col-md-4">
         <input matInput id="costValue" name="costValue"
                class="form-text-right"
                placeholder="Wartość"
