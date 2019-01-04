@@ -22,17 +22,16 @@
 
     <div class="form-row">
       <!--TYP KOSZTU - PRZYCHODZĄCY  LUB WYCHODZĄCY-->
-      <div class="col-md-4">
-        <mat-form-field>
-          <mat-select id="costDirection" name="costDirection"
-                      placeholder="Typ"
-                      [(ngModel)]="transaction.costDirection">
-            <mat-option *ngFor="let direction of directions"
-                        [value]="direction">{{direction}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="col-md-4">
+        <mat-select id="costDirection" name="costDirection"
+                    placeholder="Typ"
+                    [(ngModel)]="transaction.costDirection">
+          <mat-option *ngFor="let direction of directions"
+                      [value]="direction">{{direction}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
 
       <!--WARTOŚĆ KOSZTU/PRZYCHODU-->
       <mat-form-field class="col-md-4">
@@ -44,7 +43,7 @@
       </mat-form-field>
 
       <!--  TERMIN PŁATNOŚCI-->
-      <mat-form-field>
+      <mat-form-field  class="col-md-4">
         <input matInput id="costPayDate" name="costPayDate"
                placeholder="Termin pierwszej płatności"
                [matDatepicker]="costPayDatePicker"
