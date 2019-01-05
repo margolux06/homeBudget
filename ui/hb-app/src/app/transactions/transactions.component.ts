@@ -61,4 +61,26 @@ export class Transactions implements OnInit {
   isIncoming(cost: OneTimeTransactionDto) {
     return cost.costDirection == CostDirection.INCOMING;
   }
+
+  deleteCyclicTransaction(cyclicTransactionId: string) {
+    this.cyclicTransactionService.delete(cyclicTransactionId).subscribe(
+      value => {
+        this.loadCyclicTransactions();
+      },
+      error1 => {
+        // todo:
+      }
+    )
+  }
+
+  deleteOneTimeTransaction(oneTimeTransactionId: string) {
+    this.oneTimeTransactionService.delete(oneTimeTransactionId).subscribe(
+      value => {
+        this.loadOneTimeTransactions();
+      },
+      error1 => {
+        //todo:
+      }
+    )
+  }
 }

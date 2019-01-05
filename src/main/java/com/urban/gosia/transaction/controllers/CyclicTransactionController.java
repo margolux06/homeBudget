@@ -5,6 +5,7 @@ import com.urban.gosia.transaction.models.dto.CreateCyclicTransactionDto;
 import com.urban.gosia.transaction.models.dto.CyclicTransactionDto;
 import com.urban.gosia.transaction.services.CyclicTransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,5 +34,11 @@ public class CyclicTransactionController {
     @PutMapping
     public CyclicTransactionDto update(@RequestBody CyclicTransactionDto dto) throws BankAccountNotFoundException {
         return cyclicTransactionService.update(dto);
+    }
+
+    @DeleteMapping("/cyclicTransaction/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable("id") UUID id) {
+        cyclicTransactionService.delete(id);
     }
 }

@@ -29,4 +29,8 @@ export class OneTimeTransactionService {
   update(transaction: OneTimeTransactionDto) {
     return this.http.put(OneTimeTransactionService.basicCostsUrl, transaction);
   }
+
+  delete(oneTimeTransactionId: string) {
+    return this.http.delete(OneTimeTransactionService.basicCostsUrl + '/' + oneTimeTransactionId);
+  }
 }

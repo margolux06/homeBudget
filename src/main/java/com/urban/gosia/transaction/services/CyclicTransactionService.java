@@ -58,4 +58,8 @@ public class CyclicTransactionService {
         return bankAccountService.findById(bankAccuntID)
                 .orElseThrow(() -> new BankAccountNotFoundException(bankAccuntID));
     }
+
+    public void delete(UUID id) {
+        cyclicTransactinRepository.delete(id);
+    }
 }

@@ -68,4 +68,8 @@ public class OneTimeTransactionService {
         return Optional.ofNullable(oneTimeTransactionRepository.findOne(id))
                 .orElseThrow(() -> new TransactionNotFoundException(id));
     }
+
+    public void delete(UUID id) {
+        oneTimeTransactionRepository.delete(id);
+    }
 }

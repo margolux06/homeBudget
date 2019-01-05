@@ -35,7 +35,7 @@
       <td>{{t.costDirection}}</td>
       <td>{{t.bankAccount != null ? t.bankAccount.bankName : '-'}}</td>
       <td><a routerLink="/cyclicModify/{{t.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
-      <td><a routerLink="/costCreate"><img src="assets/delete-outline.png" width="20"/></a></td>
+      <td><a (click)="deleteCyclicTransaction(t.id)"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>
     </tbody>
   </table>
@@ -72,7 +72,7 @@
       <td>{{oneTime.costDirection}}</td>
       <td>{{oneTime.bankAccount != null ? oneTime.bankAccount.bankName : '-'}}</td>
       <td><a routerLink="/onetimeModify/{{oneTime.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
-      <td><a routerLink="/costCreate"><img src="assets/delete-outline.png" width="20"/></a></td>
+      <td><a (click)="deleteOneTimeTransaction(oneTime.id)"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>
     </tbody>
   </table>

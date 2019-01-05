@@ -5,6 +5,7 @@ import com.urban.gosia.transaction.models.dto.CreateOneTimeTransactionDto;
 import com.urban.gosia.transaction.models.dto.OneTimeTransactionDto;
 import com.urban.gosia.transaction.services.OneTimeTransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,5 +35,11 @@ public class OneTimeTransactionController {
     @PutMapping
     public OneTimeTransactionDto update(@RequestBody OneTimeTransactionDto dto) throws BankAccountNotFoundException {
         return oneTimeTransactionService.update(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable("id") UUID id){
+        oneTimeTransactionService.delete(id);
     }
 }

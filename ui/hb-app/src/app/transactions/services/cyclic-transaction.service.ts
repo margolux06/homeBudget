@@ -28,4 +28,8 @@ export class CyclicTransactionService {
   update(cyclicTransaction: CyclicTransactionDto) {
     return this.http.put<CyclicTransactionDto>(CyclicTransactionService.basicCyclicTransactionUrl, cyclicTransaction);
   }
+
+  delete(cyclicTransactionId: string) {
+    return this.http.delete(CyclicTransactionService.basicCyclicTransactionUrl + '/' + cyclicTransactionId);
+  }
 }
