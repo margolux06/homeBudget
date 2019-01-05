@@ -24,8 +24,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./onetime-transaction-modify.component.css'],
 })
 export class OnetimeTransactionModifyComponent implements OnInit {
-  private transactionSubscription: Subscription;
-  private accoutSubscription: Subscription;
+  private subscriptions = new Subscription();
 
   bankAccounts: Subject<BankAccountDto[]> = new Subject();
   transaction: OneTimeTransactionDto = new OneTimeTransactionDto();
@@ -66,31 +65,30 @@ export class OnetimeTransactionModifyComponent implements OnInit {
   }
 
   private fetchAccounts() {
-    this.accoutSubscription = this.bankAccountService.getAccounts()
+    this.subscriptions.add(this.bankAccountService.getAccounts()
       .subscribe(accounts => {
         this.bankAccounts.next(accounts);
         this.loadOneTimeTransaction();
       }, error1 => {
         console.log("fetchAccounts error" + error1);
-      })
+      }));
   }
 
   private loadOneTimeTransaction() {
     if (this.route.snapshot.paramMap.has("id")) {
       const id = this.route.snapshot.paramMap.get("id");
 
-      this.transactionSubscription = this.oneTimeTransactionService.findAccountById(id)
+      this.subscriptions.add(this.oneTimeTransactionService.findAccountById(id)
         .subscribe(oneTimeTransaction => {
           this.transaction = oneTimeTransaction.get();
         }, error1 => {
           //  todo:
           console.log(error1);
-        });
+        }));
     }
   }
 
   ngOnDestroy() {
-    this.accoutSubscription.unsubscribe();
-    this.transactionSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }
