@@ -33,7 +33,7 @@
       <td>{{t.lastPayDate | date:'dd-MM-yyyy'}}</td>
       <td>{{t.period}}</td>
       <td>{{t.costDirection}}</td>
-      <td>{{t.bankAccount.bankName}}</td>
+      <td>{{t.bankAccount != null ? t.bankAccount.bankName : '-'}}</td>
       <td><a routerLink="/cyclicModify/{{t.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
       <td><a routerLink="/costCreate"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>
@@ -70,7 +70,7 @@
       </td>
       <td>{{oneTime.payDate | date:'dd-MM-yyyy'}}</td>
       <td>{{oneTime.costDirection}}</td>
-      <td>{{oneTime.bankAccount.bankName}}</td>
+      <td>{{oneTime.bankAccount != null ? oneTime.bankAccount.bankName : '-'}}</td>
       <td><a routerLink="/onetimeModify/{{oneTime.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>
       <td><a routerLink="/costCreate"><img src="assets/delete-outline.png" width="20"/></a></td>
     </tr>

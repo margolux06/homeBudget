@@ -32,7 +32,7 @@ export class OnetimeTransactionModifyComponent implements OnInit {
 
   directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
   matcher = new MyErrorStateMatcher();
-  startDay:Date = new Date();
+  startDay = new Date();
 
   constructor(private bankAccountService: BankAccountService,
               private oneTimeTransactionService: OneTimeTransactionService,
@@ -45,12 +45,14 @@ export class OnetimeTransactionModifyComponent implements OnInit {
   }
 
   compareAccountFn(a1: BankAccountDto, a2: BankAccountDto) {
+    if(a1 == null || a2 == null)
+      return null;
     return BankAccountDto.compareAccountById(a1, a2);
   }
 
   onSubmit() {
     console.log(this.transaction);
-    let observable: Observable<Object> =
+    let observable: Observable<any> =
       this.transaction.id == null ?
         this.oneTimeTransactionService.create(this.transaction)
         : this.oneTimeTransactionService.update(this.transaction);
