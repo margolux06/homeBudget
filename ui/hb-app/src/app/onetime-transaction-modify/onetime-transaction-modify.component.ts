@@ -91,4 +91,11 @@ export class OnetimeTransactionModifyComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
+
+  changedBindToBankAccount() {
+    if(this.transaction.bankAccountId != null){
+      this.transaction.bankAccount = null;
+      this.transaction.bankAccountId = null;
+    }
+  }
 }
