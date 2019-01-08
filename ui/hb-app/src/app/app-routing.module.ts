@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'transactions', component: Transactions},
   {path: 'onetimeModify/:id', component: OnetimeTransactionModifyComponent},
   {path: 'cyclicModify/:id', component: CyclicTransactionModifyComponent},
-  {path: 'costCreate', component: OnetimeTransactionModifyComponent}
+  {path: 'costCreate', component: CyclicTransactionModifyComponent}
 ];
 
 @NgModule({

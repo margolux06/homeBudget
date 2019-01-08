@@ -1,6 +1,6 @@
 <div class="container container-header">
 
-  <form (ngSubmit)="onSubmit()">
+  <form #cyclicForm="ngForm" (ngSubmit)="onSubmit()">
 
     <!--NAZWA WYDATKU/PRZYCHODU-->
     <mat-form-field class="form-element-full-width">
@@ -25,6 +25,7 @@
       <mat-form-field class="col-md-4">
         <mat-select id="costDirection" name="costDirection"
                     placeholder="Typ"
+                    required
                     [(ngModel)]="transaction.costDirection">
           <mat-option *ngFor="let direction of directions"
                       [value]="direction">{{direction}}
@@ -36,6 +37,7 @@
       <mat-form-field class="col-md-4">
         <mat-select id="period" name="period"
                     placeholder="Cykliczność"
+                    required
                     [(ngModel)]="transaction.period">
           <mat-option *ngFor="let period of periods"
                       [value]="period">{{period}}
@@ -49,6 +51,7 @@
                class="form-text-right"
                placeholder="Wartość"
                pattern="[0-9]*.?[0-9]{0,2}"
+               required
                [(ngModel)]="transaction.value"/>
         <span matPrefix>$&nbsp;</span>
       </mat-form-field>
@@ -59,6 +62,7 @@
       <mat-form-field class="col-md-6">
         <input matInput id="firstPayDate" name="firstPayDate"
                placeholder="Termin pierwszej płatności"
+               required
                [matDatepicker]="firstPayDatePicker"
                [(ngModel)]="transaction.firstPayDate">
         <mat-datepicker-toggle matSuffix [for]="firstPayDatePicker"></mat-datepicker-toggle>
@@ -69,6 +73,7 @@
       <mat-form-field class="col-md-6">
         <input matInput id="lastPayDate" name="lastPayDate"
                placeholder="Termin ostatniej płatności"
+               required
                [matDatepicker]="lastPayDatePicker"
                [(ngModel)]="transaction.lastPayDate">
         <mat-datepicker-toggle matSuffix [for]="lastPayDatePicker"></mat-datepicker-toggle>
@@ -78,6 +83,7 @@
 
     <!--CZY POWIĄZAĆ KONTO BANKOWE ?-->
     <mat-checkbox id="hasBankAccount" name="hasBankAccount"
+                  (change)="changedBindToBankAccount()"
                   [checked]="transaction.bankAccountId != null">
       Powiązać w kontem bankowym?
     </mat-checkbox>
@@ -92,6 +98,6 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button type="submit" class="btn btn-success">Zapisz</button>
+    <button type="submit" class="btn btn-success" [disabled]="!cyclicForm.valid">Zapisz</button>
   </form>
 </div>

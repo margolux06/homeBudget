@@ -35,7 +35,10 @@ public class CyclicTransactionService {
     }
 
     public CyclicTransactionDto save(CreateCyclicTransactionDto dto) throws BankAccountNotFoundException {
-        BankAccount bankAccount = getBankAccount(dto.getBankAccountId());
+        BankAccount bankAccount = null;
+        if (dto.getBankAccountId() != null) {
+            bankAccount = getBankAccount(dto.getBankAccountId());
+        }
         CyclicTransaction transaction = CreateCyclicTransactionDto.convert(dto, bankAccount);
 
         CyclicTransaction cyclicTransaction = cyclicTransactinRepository.save(transaction);
@@ -46,10 +49,13 @@ public class CyclicTransactionService {
         CyclicTransaction transaction = Optional.ofNullable(cyclicTransactinRepository.findOne(dto.getId()))
                 .orElseThrow(() -> new TransactionNotFoundException(dto.getId()));
 
-        BankAccount bankAccount = getBankAccount(dto.getBankAccountId());
+        BankAccount bankAccount = null;
+        if (dto.getBankAccountId() != null) {
+            bankAccount = getBankAccount(dto.getBankAccountId());
+        }
 
         transaction.update(dto, bankAccount);
-        cyclicTransactinRepository.save(transaction);
+        transaction = cyclicTransactinRepository.save(transaction);
 
         return CyclicTransactionDto.convertToDto(transaction);
     }

@@ -6,7 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {BankAccountService} from "../component-bank-account/services/bank-account-service.service";
 import {BankAccountDto} from "../component-bank-account/models/bank-account-dto";
 import {CostDirection} from "../transactions/models/CostDirection";
-import {Subject, Subscription} from "rxjs";
+import {Observable, Subject, Subscription} from "rxjs";
 import {ErrorStateMatcher} from "@angular/material";
 import {FormControl, FormGroupDirective, NgForm} from "@angular/forms";
 import {CyclicCostPeriod} from "../transactions/models/CyclicCostPeriod";
@@ -70,16 +70,28 @@ export class CyclicTransactionModifyComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.transaction)
-    this.cyclicTransactionService.save(this.transaction).subscribe(
+    console.log(this.transaction);
+    let observable: Observable<any> =
+      this.transaction.id == null ?
+        this.cyclicTransactionService.save(this.transaction)
+        : this.cyclicTransactionService.update(this.transaction);
+
+    observable.subscribe(
       value => {
         this.location.back();
-      },
-      error1 => {
-      })
+      }, error1 => {
+        console.log("onSubmit error : " + error1);
+      });
   }
 
   compareAccountFn(a1: BankAccountDto, a2: BankAccountDto) {
     return BankAccountDto.compareAccountById(a1, a2);
+  }
+
+  changedBindToBankAccount() {
+    if(this.transaction.bankAccountId != null){
+      this.transaction.bankAccount = null;
+      this.transaction.bankAccountId = null;
+    }
   }
 }

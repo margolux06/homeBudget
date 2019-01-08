@@ -23,7 +23,7 @@ public class CyclicTransactionDto {
     private Date lastPayDate;
     private Transaction.CostDirection costDirection;
     private CyclicTransaction.CyclicCostPeriod period;
-    private int bankAccountId;
+    private Integer bankAccountId;
 
     public static CyclicTransactionDto convertToDto(CyclicTransaction transaction) {
         return CyclicTransactionDto.builder()
@@ -34,7 +34,8 @@ public class CyclicTransactionDto {
                 .lastPayDate(transaction.getLastPayDate())
                 .costDirection(transaction.getCostDirection())
                 .period(transaction.getPeriod())
-                .bankAccountId(transaction.getBankAccount().getId())
+                .bankAccountId(transaction.getBankAccount() != null ?
+                        transaction.getBankAccount().getId() : null)
                 .build();
     }
 }

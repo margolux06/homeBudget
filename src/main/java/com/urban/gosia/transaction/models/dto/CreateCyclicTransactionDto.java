@@ -17,7 +17,7 @@ public class CreateCyclicTransactionDto {
     private String name;
     private BigDecimal value;
     private Transaction.CostDirection costDirection;
-    private int bankAccountId;
+    private Integer bankAccountId;
     private CyclicTransaction.CyclicCostPeriod period;
     private Date firstPayDate;
     private Date lastPayDate;
