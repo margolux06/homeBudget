@@ -31,7 +31,7 @@
       </td>
       <td>{{t.firstPayDate | date:'dd-MM-yyyy'}}</td>
       <td>{{t.lastPayDate | date:'dd-MM-yyyy'}}</td>
-      <td>{{t.period}}</td>
+      <td>{{t.period.name}}</td>
       <td>{{t.costDirection}}</td>
       <td>{{t.bankAccount != null ? t.bankAccount.bankName : '-'}}</td>
       <td><a routerLink="/cyclicModify/{{t.id}}"><img src="assets/baseline_edit_black_48dp.png" width="20"/></a></td>

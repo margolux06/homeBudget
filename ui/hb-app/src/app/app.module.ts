@@ -29,6 +29,7 @@ import {
   MatSelectModule,
   NativeDateModule
 } from '@angular/material';
+import {CyclicTransactionPeriodService} from "./transactions/services/cyclic-transaction-period.service";
 
 export const MY_NATIVE_DATE_FORMATS= {
   parse: {
@@ -71,7 +72,7 @@ export const MY_NATIVE_DATE_FORMATS= {
   ],
 
   providers: [
-    BankAccountService, AccountBalanceService, OneTimeTransactionService, CyclicTransactionService,
+    BankAccountService, AccountBalanceService, OneTimeTransactionService, CyclicTransactionService, CyclicTransactionPeriodService,
     {provide: MAT_DATE_FORMATS, useValue: MY_NATIVE_DATE_FORMATS}
   ],
   bootstrap: [AppComponent]

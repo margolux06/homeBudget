@@ -17,26 +17,17 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 public class CyclicTransaction extends Transaction {
-
-
-    public enum CyclicCostPeriod {
-        PER_WEEK,
-        PER_MONTH,
-        PER_THREE_MONTHS,
-        PER_YEAR;
-    }
-
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date firstPayDate;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastPayDate;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private CyclicCostPeriod period;
+    @ManyToOne
+    @JoinColumn(name = "period")
+    private CyclicTransactionPeriod period;
 
     public CyclicTransaction update(CyclicTransactionDto dto, BankAccount bankAccount) {
         setName(dto.getName());

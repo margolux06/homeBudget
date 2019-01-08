@@ -10,6 +10,7 @@ import {Observable, Subject, Subscription} from "rxjs";
 import {ErrorStateMatcher} from "@angular/material";
 import {FormControl, FormGroupDirective, NgForm} from "@angular/forms";
 import {CyclicCostPeriod} from "../transactions/models/CyclicCostPeriod";
+import {CyclicTransactionPeriodService} from "../transactions/services/cyclic-transaction-period.service";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,19 +29,22 @@ export class CyclicTransactionModifyComponent implements OnInit {
   private accoutSubscription: Subscription;
 
   directions: CostDirection[] = [CostDirection.INCOMING, CostDirection.OUTGOING];
-  periods: CyclicCostPeriod[] = [CyclicCostPeriod.PER_WEEK, CyclicCostPeriod.PER_MONTH, CyclicCostPeriod.PER_THREE_MONTHS,
-    CyclicCostPeriod.PER_YEAR];
+  periods: CyclicCostPeriod[] = [];
   bankAccounts: Subject<BankAccountDto[]> = new Subject();
   transaction: CyclicTransactionDto = new CyclicTransactionDto();
   matcher: MyErrorStateMatcher;
 
+  accountAssigned: boolean = false;
+
   constructor(private cyclicTransactionService: CyclicTransactionService,
               private bankAccountService: BankAccountService,
+              private transactionPeriodsService: CyclicTransactionPeriodService,
               private route: ActivatedRoute,
               private location: Location) {
   }
 
   ngOnInit() {
+    this.fetchTransactionPeriods();
     this.fetchAccounts();
 
   }
@@ -52,11 +56,21 @@ export class CyclicTransactionModifyComponent implements OnInit {
       this.transactionSubscription = this.cyclicTransactionService.findAccountById(id)
         .subscribe(cyclicTransaction => {
           this.transaction = cyclicTransaction.get();
+          this.accountAssigned = this.transaction.bankAccountId != null;
           console.log(this.transaction);
         }, error1 => {
           //  todo:
         })
     }
+  }
+
+  private fetchTransactionPeriods() {
+    this.transactionPeriodsService.findAll().subscribe(
+      transactionPeriods => {
+        this.periods = transactionPeriods;
+      }, error1 => {
+        //todo:
+      })
   }
 
   private fetchAccounts() {
@@ -84,14 +98,20 @@ export class CyclicTransactionModifyComponent implements OnInit {
       });
   }
 
+  changedBindToBankAccount() {
+    this.accountAssigned = !this.accountAssigned;
+
+    if (this.transaction.bankAccountId != null) {
+      this.transaction.bankAccount = null;
+      this.transaction.bankAccountId = null;
+    }
+  }
+
   compareAccountFn(a1: BankAccountDto, a2: BankAccountDto) {
     return BankAccountDto.compareAccountById(a1, a2);
   }
 
-  changedBindToBankAccount() {
-    if(this.transaction.bankAccountId != null){
-      this.transaction.bankAccount = null;
-      this.transaction.bankAccountId = null;
-    }
+  transactionPeriodCompare(e1: CyclicCostPeriod, e2: CyclicCostPeriod) {
+    return CyclicCostPeriod.comparePeriod(e1, e2);
   }
 }

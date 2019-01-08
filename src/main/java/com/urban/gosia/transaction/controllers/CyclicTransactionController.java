@@ -1,6 +1,7 @@
 package com.urban.gosia.transaction.controllers;
 
 import com.urban.gosia.bankAccount.BankAccountNotFoundException;
+import com.urban.gosia.exceptions.CyclicPeriodNotFoundException;
 import com.urban.gosia.transaction.models.dto.CreateCyclicTransactionDto;
 import com.urban.gosia.transaction.models.dto.CyclicTransactionDto;
 import com.urban.gosia.transaction.services.CyclicTransactionService;
@@ -27,7 +28,7 @@ public class CyclicTransactionController {
     }
 
     @PostMapping
-    public CyclicTransactionDto save(@RequestBody CreateCyclicTransactionDto dto) throws BankAccountNotFoundException {
+    public CyclicTransactionDto save(@RequestBody CreateCyclicTransactionDto dto) throws BankAccountNotFoundException, CyclicPeriodNotFoundException {
         return cyclicTransactionService.save(dto);
     }
 

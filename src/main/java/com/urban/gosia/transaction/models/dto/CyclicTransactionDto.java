@@ -1,6 +1,7 @@
 package com.urban.gosia.transaction.models.dto;
 
 import com.urban.gosia.transaction.models.CyclicTransaction;
+import com.urban.gosia.transaction.models.CyclicTransactionPeriod;
 import com.urban.gosia.transaction.models.Transaction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class CyclicTransactionDto {
     private Date firstPayDate;
     private Date lastPayDate;
     private Transaction.CostDirection costDirection;
-    private CyclicTransaction.CyclicCostPeriod period;
+    private CyclicTransactionPeriod period;
     private Integer bankAccountId;
 
     public static CyclicTransactionDto convertToDto(CyclicTransaction transaction) {

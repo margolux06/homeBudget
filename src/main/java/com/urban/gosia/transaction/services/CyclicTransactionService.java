@@ -3,8 +3,10 @@ package com.urban.gosia.transaction.services;
 import com.urban.gosia.bankAccount.BankAccount;
 import com.urban.gosia.bankAccount.BankAccountNotFoundException;
 import com.urban.gosia.bankAccount.BankAccountService;
+import com.urban.gosia.exceptions.CyclicPeriodNotFoundException;
 import com.urban.gosia.exceptions.TransactionNotFoundException;
 import com.urban.gosia.transaction.models.CyclicTransaction;
+import com.urban.gosia.transaction.models.CyclicTransactionPeriod;
 import com.urban.gosia.transaction.models.dto.CreateCyclicTransactionDto;
 import com.urban.gosia.transaction.models.dto.CyclicTransactionDto;
 import com.urban.gosia.transaction.repository.CyclicTransactinRepository;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class CyclicTransactionService {
     private final CyclicTransactinRepository cyclicTransactinRepository;
+    private final CyclicTransactionPeriodService transactionPeriodService;
     private final BankAccountService bankAccountService;
 
     public List<CyclicTransactionDto> findAll() {
@@ -34,12 +37,14 @@ public class CyclicTransactionService {
                 .orElseThrow(() -> new TransactionNotFoundException(id));
     }
 
-    public CyclicTransactionDto save(CreateCyclicTransactionDto dto) throws BankAccountNotFoundException {
+    public CyclicTransactionDto save(CreateCyclicTransactionDto dto) throws BankAccountNotFoundException, CyclicPeriodNotFoundException {
         BankAccount bankAccount = null;
         if (dto.getBankAccountId() != null) {
             bankAccount = getBankAccount(dto.getBankAccountId());
         }
-        CyclicTransaction transaction = CreateCyclicTransactionDto.convert(dto, bankAccount);
+
+        CyclicTransactionPeriod cyclicTransactionPeriod = transactionPeriodService.getById(dto.getTrancastionPeriodId());
+        CyclicTransaction transaction = CreateCyclicTransactionDto.convert(dto, bankAccount, cyclicTransactionPeriod);
 
         CyclicTransaction cyclicTransaction = cyclicTransactinRepository.save(transaction);
         return CyclicTransactionDto.convertToDto(cyclicTransaction);
